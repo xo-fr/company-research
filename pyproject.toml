@@ -1,0 +1,32 @@
+[project]
+name = "company-research"
+version = "0.1.0"
+description = "Job-seeker company research: keyless sources, cited evidence, a static HTML dossier."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "company-research contributors" }]
+keywords = ["job-search", "company-research", "claude-code", "skill", "edgar", "h1b"]
+dependencies = [
+  # httpx is preferred but optional: common.py falls back to urllib from the
+  # standard library so the tool works on a bare Python with nothing installed.
+  "httpx>=0.27",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.urls]
+Homepage = "https://github.com/xo-fr/company-research"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["live: hits the network; excluded from the default run"]
+addopts = "-m 'not live'"
