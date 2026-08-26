@@ -1,0 +1,207 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/xo-fr/company-research/schemas/evidence.schema.json",
+  "title": "Company research evidence file",
+  "description": "Contract between pillar subagents (which write fragments), merge.py (which assembles and validates) and render.py (which draws the dossier). Claims are prose for humans; signals are numbers for the verdict. They are deliberately separate.",
+  "type": "object",
+  "required": ["meta", "entity", "sources", "pillars"],
+  "additionalProperties": false,
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["generated_at", "stage", "spec_version"],
+      "additionalProperties": true,
+      "properties": {
+        "generated_at": { "type": "string" },
+        "stage": { "enum": ["applying", "interviewing", "offer"] },
+        "spec_version": { "type": "string" },
+        "generator": { "type": "string" }
+      }
+    },
+    "entity": { "$ref": "#/$defs/entity" },
+    "query": { "$ref": "#/$defs/query" },
+    "sources": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/source" }
+    },
+    "pillars": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "overview": { "$ref": "#/$defs/pillar" },
+        "news": { "$ref": "#/$defs/pillar" },
+        "hiring_trend": { "$ref": "#/$defs/pillar" },
+        "culture": { "$ref": "#/$defs/pillar" },
+        "compensation": { "$ref": "#/$defs/pillar" },
+        "reviews": { "$ref": "#/$defs/pillar" },
+        "interview_prep": { "$ref": "#/$defs/pillar" },
+        "financial_health": { "$ref": "#/$defs/pillar" },
+        "interviewers": { "$ref": "#/$defs/pillar" },
+        "jd_gap": { "$ref": "#/$defs/pillar" }
+      }
+    },
+    "signals": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "layoff_events_24m": { "$ref": "#/$defs/signal" },
+        "funding_months_ago": { "$ref": "#/$defs/signal" },
+        "revenue_trend": { "$ref": "#/$defs/signal" },
+        "role_repost_count_12m": { "$ref": "#/$defs/signal" },
+        "hiring_velocity_90d": { "$ref": "#/$defs/signal" },
+        "headcount_trend_12m": { "$ref": "#/$defs/signal" },
+        "comp_percentile_vs_market": { "$ref": "#/$defs/signal" },
+        "comp_transparency": { "$ref": "#/$defs/signal" },
+        "rating_current": { "$ref": "#/$defs/signal" },
+        "rating_trend_24m": { "$ref": "#/$defs/signal" },
+        "wlb_sentiment": { "$ref": "#/$defs/signal" },
+        "eng_output_signal": { "$ref": "#/$defs/signal" },
+        "stack_currency": { "$ref": "#/$defs/signal" },
+        "sponsorship_history_3y": { "$ref": "#/$defs/signal" }
+      }
+    },
+    "narrative": { "$ref": "#/$defs/narrative" },
+    "profile": {
+      "type": "object",
+      "description": "The slice of the user's profile the dashboard needs: priority order and whether sponsorship applies.",
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "entity": {
+      "type": "object",
+      "required": ["brand"],
+      "additionalProperties": true,
+      "properties": {
+        "brand": { "type": "string" },
+        "domain": { "type": ["string", "null"] },
+        "resolved_entity_id": { "type": ["string", "null"] },
+        "employment_type": { "enum": ["direct", "gcc", "vendor", "unknown"] },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "tree": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "brand": {
+              "type": "object",
+              "additionalProperties": true,
+              "properties": {
+                "wikidata_qid": { "type": ["string", "null"] },
+                "aliases": { "type": "array", "items": { "type": "string" } }
+              }
+            },
+            "entities": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["id", "jurisdiction", "legal_name"],
+                "additionalProperties": true,
+                "properties": {
+                  "id": { "type": "string" },
+                  "jurisdiction": { "type": "string" },
+                  "legal_name": { "type": "string" },
+                  "cik": { "type": ["string", "null"] },
+                  "ticker": { "type": ["string", "null"] },
+                  "cin": { "type": ["string", "null"] }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "query": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "role": { "type": ["string", "null"] },
+        "level_guess": { "type": ["string", "null"] },
+        "market": { "type": ["string", "null"] },
+        "city": { "type": ["string", "null"] },
+        "jd_url": { "type": ["string", "null"] },
+        "jd_text_path": { "type": ["string", "null"] }
+      }
+    },
+    "source": {
+      "type": "object",
+      "required": ["id", "url", "type"],
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string", "pattern": "^s[0-9]+$" },
+        "url": { "type": "string" },
+        "publisher": { "type": "string" },
+        "type": {
+          "enum": ["filing", "news", "forum", "review", "posting", "dataset", "company_site"]
+        },
+        "published_at": { "type": ["string", "null"] },
+        "retrieved_at": { "type": ["string", "null"] },
+        "title": { "type": "string" }
+      }
+    },
+    "claim": {
+      "type": "object",
+      "required": ["id", "text", "source_ids", "confidence"],
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string" },
+        "text": { "type": "string", "minLength": 1 },
+        "source_ids": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "confidence": { "enum": ["high", "medium", "low"] },
+        "as_of": { "type": ["string", "null"] }
+      }
+    },
+    "gap": {
+      "type": "object",
+      "required": ["reason"],
+      "additionalProperties": true,
+      "properties": {
+        "reason": { "type": "string" },
+        "suggested_fallback": { "type": "string" }
+      }
+    },
+    "pillar": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": true,
+      "properties": {
+        "status": { "enum": ["ok", "partial", "gap"] },
+        "entity_id": { "type": ["string", "null"] },
+        "claims": { "type": "array", "items": { "$ref": "#/$defs/claim" } },
+        "gaps": { "type": "array", "items": { "$ref": "#/$defs/gap" } }
+      }
+    },
+    "signal": {
+      "type": "object",
+      "required": ["value", "confidence"],
+      "additionalProperties": true,
+      "properties": {
+        "value": { "type": ["number", "string", "boolean", "null"] },
+        "confidence": { "enum": ["high", "medium", "low", "none"] },
+        "source_ids": { "type": "array", "items": { "type": "string" } },
+        "note": { "type": "string" }
+      }
+    },
+    "narrative": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "summary": { "type": "string" },
+        "strengths": { "$ref": "#/$defs/narrative_points" },
+        "concerns": { "$ref": "#/$defs/narrative_points" },
+        "questions_to_ask": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "narrative_points": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["text"],
+        "additionalProperties": true,
+        "properties": {
+          "text": { "type": "string" },
+          "claim_ids": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

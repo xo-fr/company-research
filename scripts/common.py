@@ -118,6 +118,137 @@ def cache_ttl(source_class: str) -> int:
     return _TTL.get(source_class, _TTL["default"])
 
 
+# ------------------------------------------------------------------------ signals
+
+# BUILD-SPEC section 6. One registry, three consumers: merge.py validates against it,
+# render.py embeds it in the dossier, and the dashboard's JavaScript normalises with it.
+# Normalisation is data, not code, so the browser and the tests cannot drift apart.
+#
+#   affine : clamp(v * scale + offset, lo, hi)
+#   table  : first row whose threshold matches wins ("le" = v <= t, "lt" = v < t)
+#   enum   : exact lookup, with false/true spelled out for booleans
+SIGNALS: dict[str, dict] = {
+    "layoff_events_24m": {
+        "dimension": "stability", "direction": "lower_better", "raw": "int",
+        "label": "Layoff events (24m)",
+        "normalize": {"kind": "table", "cmp": "le", "rows": [[0, 1.0], [1, 0.6], [2, 0.3]], "else": 0.1},
+    },
+    "funding_months_ago": {
+        "dimension": "stability", "direction": "lower_better", "raw": "int",
+        "label": "Months since last raise", "applies_to": "private companies",
+        "normalize": {"kind": "table", "cmp": "lt", "rows": [[12, 1.0], [24, 0.7], [36, 0.4]], "else": 0.15},
+    },
+    "revenue_trend": {
+        "dimension": "stability", "direction": "higher_better", "raw": "enum",
+        "label": "Revenue trend",
+        "normalize": {"kind": "enum", "map": {"growing": 1.0, "flat": 0.5, "declining": 0.1}},
+    },
+    "role_repost_count_12m": {
+        "dimension": "stability", "direction": "lower_better", "raw": "int",
+        "label": "Times this role was reposted (12m)",
+        "normalize": {"kind": "table", "cmp": "le", "rows": [[1, 1.0], [2, 0.7], [3, 0.4]], "else": 0.15},
+    },
+    "hiring_velocity_90d": {
+        "dimension": "growth", "direction": "higher_better", "raw": "float",
+        "label": "Hiring velocity (90d)",
+        "normalize": {"kind": "affine", "scale": 1.0, "offset": 0.5, "clamp": [0, 1]},
+    },
+    "headcount_trend_12m": {
+        "dimension": "growth", "direction": "higher_better", "raw": "float",
+        "label": "Headcount trend (12m)",
+        "normalize": {"kind": "affine", "scale": 2.0, "offset": 0.5, "clamp": [0, 1]},
+    },
+    "comp_percentile_vs_market": {
+        "dimension": "comp", "direction": "higher_better", "raw": "int_0_100",
+        "label": "Pay percentile vs market",
+        "normalize": {"kind": "affine", "scale": 0.01, "offset": 0.0, "clamp": [0, 1]},
+    },
+    "comp_transparency": {
+        "dimension": "comp", "direction": "higher_better", "raw": "bool",
+        "label": "Publishes pay ranges",
+        "normalize": {"kind": "enum", "map": {"true": 1.0, "false": 0.0}},
+    },
+    "rating_current": {
+        "dimension": "wlb", "direction": "higher_better", "raw": "float_1_5",
+        "label": "Employee rating (current)",
+        "normalize": {"kind": "affine", "scale": 0.5, "offset": -1.25, "clamp": [0, 1]},
+    },
+    "rating_trend_24m": {
+        "dimension": "wlb", "direction": "higher_better", "raw": "float_delta",
+        "label": "Rating trend (24m)",
+        "normalize": {"kind": "affine", "scale": 1.0, "offset": 0.5, "clamp": [0, 1]},
+    },
+    "wlb_sentiment": {
+        "dimension": "wlb", "direction": "higher_better", "raw": "float_-1_1",
+        "label": "Work-life sentiment",
+        "normalize": {"kind": "affine", "scale": 0.5, "offset": 0.5, "clamp": [0, 1]},
+    },
+    "eng_output_signal": {
+        "dimension": "learning", "direction": "higher_better", "raw": "float_0_1",
+        "label": "Engineering output in the open",
+        "normalize": {"kind": "affine", "scale": 1.0, "offset": 0.0, "clamp": [0, 1]},
+    },
+    "stack_currency": {
+        "dimension": "learning", "direction": "higher_better", "raw": "float_0_1",
+        "label": "How current the stack is",
+        "normalize": {"kind": "affine", "scale": 1.0, "offset": 0.0, "clamp": [0, 1]},
+    },
+    "sponsorship_history_3y": {
+        "dimension": "logistics", "direction": "higher_better", "raw": "int",
+        "label": "Visa sponsorships filed (3y)",
+        "conditional_on": "profile.work_authorization requires sponsorship",
+        "normalize": {"kind": "table", "cmp": "le", "rows": [[0, 0.0], [9, 0.5], [49, 0.8]], "else": 1.0},
+    },
+}
+
+DIMENSIONS = ["stability", "comp", "wlb", "learning", "growth", "logistics"]
+
+DIMENSION_LABELS = {
+    "stability": "Stability",
+    "comp": "Compensation",
+    "wlb": "Work-life balance",
+    "learning": "Learning",
+    "growth": "Growth",
+    "logistics": "Logistics",
+}
+
+PILLARS = [
+    "overview", "news", "hiring_trend", "culture", "compensation", "reviews",
+    "interview_prep", "financial_health", "interviewers", "jd_gap",
+]
+
+STAGE_PILLARS = {
+    "applying": ["overview", "news", "financial_health", "culture", "hiring_trend"],
+    "interviewing": ["overview", "interview_prep", "jd_gap", "interviewers", "culture", "news"],
+    "offer": ["compensation", "financial_health", "reviews", "hiring_trend", "culture"],
+}
+
+
+def normalize_signal(signal_id: str, value) -> float | None:
+    """Python twin of the dashboard's normaliser, used by tests and by merge.py."""
+    spec = SIGNALS.get(signal_id)
+    if spec is None or value is None:
+        return None
+    rule = spec["normalize"]
+    kind = rule["kind"]
+    if kind == "enum":
+        key = str(value).lower() if not isinstance(value, bool) else ("true" if value else "false")
+        return rule["map"].get(key)
+    try:
+        numeric = float(value)
+    except (TypeError, ValueError):
+        return None
+    if kind == "affine":
+        lo, hi = rule.get("clamp", [0, 1])
+        return max(lo, min(hi, numeric * rule["scale"] + rule["offset"]))
+    if kind == "table":
+        for threshold, out in rule["rows"]:
+            if (numeric <= threshold) if rule["cmp"] == "le" else (numeric < threshold):
+                return out
+        return rule["else"]
+    return None
+
+
 # ------------------------------------------------------------------------ profile
 
 
@@ -539,6 +670,18 @@ def add_common_args(parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
     )
     parser.add_argument("--pretty", action="store_true", help="indent JSON output")
     return parser
+
+
+def _use_utf8_streams() -> None:
+    """Windows consoles default to cp1252 and blow up on a filing's en dashes."""
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            stream.reconfigure(encoding="utf-8", errors="replace")  # type: ignore[union-attr]
+        except (AttributeError, ValueError):
+            pass
+
+
+_use_utf8_streams()
 
 
 def emit(payload: Any, pretty: bool = False) -> None:
