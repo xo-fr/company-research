@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__TITLE__</title>
+<style>
+  :root {
+    --bg: #fbfaf8;
+    --panel: #ffffff;
+    --ink: #1a1a1a;
+    --ink-soft: #55534e;
+    --ink-faint: #86837c;
+    --line: #e6e2da;
+    --line-soft: #f0ece4;
+    --accent: #2f6f4f;
+    --accent-soft: #e8f2ec;
+    --warn: #9a5b12;
+    --warn-soft: #fbf0e0;
+    --bad: #9b3232;
+    --bad-soft: #fbe9e7;
+    --shadow: 0 1px 2px rgba(26, 26, 26, .05), 0 8px 24px rgba(26, 26, 26, .04);
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14150f;
+      --panel: #1c1e17;
+      --ink: #f0eee6;
+      --ink-soft: #b8b5a9;
+      --ink-faint: #85837a;
+      --line: #2e3128;
+      --line-soft: #24261f;
+      --accent: #86c9a0;
+      --accent-soft: #1e2c23;
+      --warn: #e0aa63;
+      --warn-soft: #2c2418;
+      --bad: #e08b83;
+      --bad-soft: #2d1d1c;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .25);
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: var(--sans); font-size: 15px; line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 32px 20px 96px; }
+  h1, h2, h3 { line-height: 1.2; margin: 0; font-weight: 620; letter-spacing: -.012em; }
+  h1 { font-size: 28px; }
+  h2 { font-size: 18px; margin-bottom: 4px; }
+  h3 { font-size: 15px; }
+  a { color: inherit; text-decoration-color: var(--line); text-underline-offset: 2px; }
+  a:hover { text-decoration-color: var(--accent); }
+  .muted { color: var(--ink-soft); }
+  .faint { color: var(--ink-faint); }
+  .mono { font-family: var(--mono); font-size: .86em; }
+  .panel {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+    padding: 20px; box-shadow: var(--shadow);
+  }
+  .stack { display: flex; flex-direction: column; gap: 18px; }
+  .row { display: flex; gap: 18px; flex-wrap: wrap; }
+
+  /* header */
+  header.top { display: flex; justify-content: space-between; gap: 28px; flex-wrap: wrap; align-items: flex-start; margin-bottom: 22px; }
+  .kicker { text-transform: uppercase; letter-spacing: .09em; font-size: 11px; color: var(--ink-faint); font-weight: 600; }
+  .entity-line { margin-top: 6px; color: var(--ink-soft); font-size: 13.5px; }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .chip {
+    font-size: 11.5px; padding: 2px 8px; border-radius: 999px;
+    border: 1px solid var(--line); color: var(--ink-soft); background: var(--line-soft);
+  }
+  .chip.warn { color: var(--warn); background: var(--warn-soft); border-color: transparent; }
+  .chip.bad { color: var(--bad); background: var(--bad-soft); border-color: transparent; }
+  .chip.good { color: var(--accent); background: var(--accent-soft); border-color: transparent; }
+
+  /* verdict */
+  .verdict { display: flex; align-items: baseline; gap: 10px; }
+  .verdict .score { font-size: 52px; font-weight: 640; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+  .verdict .outof { font-size: 17px; color: var(--ink-faint); }
+  .coverage { font-size: 12.5px; color: var(--ink-faint); margin-top: 2px; }
+  .verdict-panel { min-width: 260px; }
+
+  /* dimensions */
+  .dim { display: grid; grid-template-columns: 132px 1fr 46px; gap: 12px; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--line-soft); }
+  .dim:last-child { border-bottom: 0; }
+  .dim-name { font-size: 13.5px; }
+  .bar { height: 8px; border-radius: 99px; background: var(--line-soft); overflow: hidden; position: relative; }
+  .bar > span { display: block; height: 100%; background: var(--accent); border-radius: 99px; transition: width .18s ease; }
+  .dim-val { text-align: right; font-variant-numeric: tabular-nums; font-size: 13px; color: var(--ink-soft); }
+  .dim.empty .bar { background: repeating-linear-gradient(135deg, var(--line-soft) 0 6px, transparent 6px 12px); }
+  .dim.excluded { opacity: .55; }
+
+  /* sliders */
+  .slider-row { display: grid; grid-template-columns: 132px 1fr 34px; gap: 12px; align-items: center; padding: 5px 0; }
+  input[type=range] { width: 100%; accent-color: var(--accent); }
+  .weight-val { text-align: right; font-variant-numeric: tabular-nums; font-size: 12.5px; color: var(--ink-faint); }
+  button {
+    font: inherit; font-size: 13px; padding: 5px 11px; border-radius: 7px; cursor: pointer;
+    border: 1px solid var(--line); background: var(--panel); color: var(--ink-soft);
+  }
+  button:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* signals table */
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  th, td { text-align: left; padding: 7px 10px 7px 0; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+  th { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--ink-faint); font-weight: 600; }
+  td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  /* pillars */
+  .pillar { border-top: 1px solid var(--line); padding-top: 16px; margin-top: 4px; }
+  .pillar-head { display: flex; align-items: baseline; gap: 10px; justify-content: space-between; }
+  .claim { padding: 11px 0; border-bottom: 1px solid var(--line-soft); }
+  .claim:last-child { border-bottom: 0; }
+  .claim-text { margin: 0 0 5px; }
+  .cite { font-size: 12.5px; color: var(--ink-faint); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .cite a { color: var(--ink-soft); }
+  .gapbox {
+    background: var(--warn-soft); border: 1px dashed var(--warn); border-radius: 9px;
+    padding: 12px 14px; font-size: 13.5px; color: var(--ink-soft);
+  }
+  .gapbox b { color: var(--warn); }
+  .empty-state { color: var(--ink-faint); font-size: 13.5px; font-style: italic; }
+  ul.tight { margin: 6px 0 0; padding-left: 18px; }
+  ul.tight li { margin-bottom: 5px; }
+  .footnote { font-size: 12.5px; color: var(--ink-faint); margin-top: 28px; }
+  details summary { cursor: pointer; font-size: 13.5px; color: var(--ink-soft); }
+  @media print {
+    body { background: #fff; }
+    .panel { box-shadow: none; break-inside: avoid; }
+    .no-print { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div>
+      <div class="kicker">Company dossier &middot; <span id="stage"></span></div>
+      <h1 id="brand"></h1>
+      <div class="entity-line" id="entity-line"></div>
+      <div class="chips" id="entity-chips"></div>
+    </div>
+    <div class="panel verdict-panel">
+      <div class="kicker">Verdict against your priorities</div>
+      <div class="verdict"><span class="score" id="score">—</span><span class="outof">/ 10</span></div>
+      <div class="coverage" id="coverage"></div>
+      <div class="coverage" id="generated"></div>
+    </div>
+  </header>
+
+  <div class="stack">
+
+    <section class="row">
+      <div class="panel" style="flex:1 1 380px">
+        <h2>What matters to you</h2>
+        <p class="muted" style="margin:2px 0 12px;font-size:13.5px">
+          Drag to re-weight. The verdict recomputes over the dimensions that have evidence;
+          dimensions with none are never quietly averaged in.
+        </p>
+        <div id="sliders"></div>
+        <div class="no-print" style="margin-top:12px;display:flex;gap:8px">
+          <button id="reset">Reset to my profile</button>
+          <button id="equal">Weight everything equally</button>
+        </div>
+      </div>
+      <div class="panel" style="flex:1 1 380px">
+        <h2>Dimension scores</h2>
+        <p class="muted" style="margin:2px 0 12px;font-size:13.5px" id="dim-note"></p>
+        <div id="dims"></div>
+      </div>
+    </section>
+
+    <section class="panel" id="narrative-panel">
+      <h2>Summary</h2>
+      <p id="summary" class="muted"></p>
+      <div class="row" style="margin-top:8px">
+        <div style="flex:1 1 300px">
+          <h3>Strengths</h3>
+          <ul class="tight" id="strengths"></ul>
+        </div>
+        <div style="flex:1 1 300px">
+          <h3>Concerns</h3>
+          <ul class="tight" id="concerns"></ul>
+        </div>
+      </div>
+      <div style="margin-top:14px" id="questions-wrap">
+        <h3>Ask them</h3>
+        <ul class="tight" id="questions"></ul>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Signals</h2>
+      <p class="muted" style="margin:2px 0 12px;font-size:13.5px">
+        Raw value, its normalised 0–1 score, and what it was read from. Signals with no
+        evidence are listed too — the gap is part of the answer.
+      </p>
+      <table>
+        <thead><tr><th>Signal</th><th>Dimension</th><th>Value</th><th>Score</th><th>Confidence</th><th>Sources</th></tr></thead>
+        <tbody id="signal-rows"></tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <h2>Evidence</h2>
+      <div id="pillars"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Sources</h2>
+      <table>
+        <thead><tr><th>#</th><th>Publisher</th><th>Document</th><th>Published</th><th>Retrieved</th></tr></thead>
+        <tbody id="source-rows"></tbody>
+      </table>
+    </section>
+
+    <details class="panel">
+      <summary>Entity tree and query</summary>
+      <pre class="mono" id="entity-json" style="white-space:pre-wrap;font-size:12px;color:var(--ink-soft)"></pre>
+    </details>
+
+    <p class="footnote">
+      Generated locally by company-research. Every number above is computed in this file,
+      in your browser, from the evidence block below it — nothing is fetched when you open
+      this page. Sources were retrieved at the times listed; re-run the dossier for fresher data.
+    </p>
+  </div>
+</div>
+
+<script type="application/json" id="evidence-data">__EVIDENCE_JSON__</script>
+<script type="application/json" id="signal-registry">__SIGNALS_JSON__</script>
+<script id="cr-scoring">
+/* Scoring core. Pure functions, no DOM: the verdict maths lives here so tests can run
+   the exact code the browser runs, instead of a Python re-implementation that drifts. */
+var CR = (function () {
+  "use strict";
+
+  function normalize(spec, value) {
+    if (!spec || value === null || value === undefined) return null;
+    var rule = spec.normalize;
+    if (rule.kind === "enum") {
+      var key = typeof value === "boolean" ? (value ? "true" : "false") : String(value).toLowerCase();
+      var hit = rule.map[key];
+      return hit === undefined ? null : hit;
+    }
+    var v = typeof value === "boolean" ? (value ? 1 : 0) : parseFloat(value);
+    if (isNaN(v)) return null;
+    if (rule.kind === "affine") {
+      var lo = rule.clamp ? rule.clamp[0] : 0;
+      var hi = rule.clamp ? rule.clamp[1] : 1;
+      return Math.max(lo, Math.min(hi, v * rule.scale + rule.offset));
+    }
+    if (rule.kind === "table") {
+      for (var i = 0; i < rule.rows.length; i++) {
+        var t = rule.rows[i][0];
+        if (rule.cmp === "le" ? v <= t : v < t) return rule.rows[i][1];
+      }
+      return rule["else"];
+    }
+    return null;
+  }
+
+  /* Sponsorship history only enters the score when the user actually needs sponsoring;
+     otherwise it renders as information and is excluded from every dimension. */
+  function needsSponsorship(profile) {
+    var auth = (profile && profile.work_authorization) || {};
+    return Object.keys(auth).some(function (k) {
+      return String(auth[k]).toLowerCase().indexOf("sponsor") !== -1;
+    });
+  }
+
+  function isCounted(id, evidence, registry, sponsored) {
+    var spec = registry.signals[id];
+    if (!spec) return false;
+    if (spec.conditional_on && !sponsored) return false;
+    var s = (evidence.signals || {})[id];
+    return !!s && s.confidence !== "none" && normalize(spec, s.value) !== null;
+  }
+
+  function dimensionScores(evidence, registry, sponsored) {
+    var out = {};
+    registry.dimensions.forEach(function (d) {
+      var values = Object.keys(registry.signals).filter(function (id) {
+        return registry.signals[id].dimension === d && isCounted(id, evidence, registry, sponsored);
+      }).map(function (id) {
+        return normalize(registry.signals[id], evidence.signals[id].value);
+      });
+      out[d] = values.length
+        ? values.reduce(function (a, b) { return a + b; }, 0) / values.length
+        : null;
+      out[d + "__n"] = values.length;
+    });
+    return out;
+  }
+
+  /* Weighted mean over the dimensions that have evidence. A dimension with no signals
+     is dropped from both numerator and denominator -- never scored as zero, which would
+     punish a company for a gap in the data rather than a gap in the company. */
+  function verdict(dims, weights, dimensions) {
+    var num = 0, den = 0;
+    dimensions.forEach(function (d) {
+      if (dims[d] === null || dims[d] === undefined) return;
+      var w = weights[d] || 0;
+      num += dims[d] * w;
+      den += w;
+    });
+    return den ? num / den : null;
+  }
+
+  function coverage(evidence, registry, sponsored) {
+    var ids = Object.keys(registry.signals);
+    var scored = ids.filter(function (id) { return isCounted(id, evidence, registry, sponsored); });
+    return { scored: scored.length, total: ids.length };
+  }
+
+  function defaultWeights(profile, registry, sponsored) {
+    var priorities = (profile && profile.priorities) || [];
+    var weights = {};
+    registry.dimensions.forEach(function (d) {
+      var rank = priorities.indexOf(d);
+      weights[d] = rank === -1
+        ? 50
+        : Math.round(100 - rank * (50 / Math.max(priorities.length - 1, 1)));
+    });
+    if (!sponsored) weights.logistics = Math.min(weights.logistics, 25);
+    return weights;
+  }
+
+  return {
+    normalize: normalize,
+    needsSponsorship: needsSponsorship,
+    isCounted: isCounted,
+    dimensionScores: dimensionScores,
+    verdict: verdict,
+    coverage: coverage,
+    defaultWeights: defaultWeights
+  };
+})();
+if (typeof module !== "undefined" && module.exports) { module.exports = CR; }
+</script>
+
+<script id="cr-ui">
+(function () {
+  "use strict";
+  var EV = JSON.parse(document.getElementById("evidence-data").textContent);
+  var REG = JSON.parse(document.getElementById("signal-registry").textContent);
+  var SIGNALS = REG.signals, DIMENSIONS = REG.dimensions, LABELS = REG.dimension_labels;
+  var PILLAR_LABELS = REG.pillar_labels || {};
+  var sponsored = CR.needsSponsorship(EV.profile);
+  var weights = CR.defaultWeights(EV.profile, REG, sponsored);
+
+  var el = function (id) { return document.getElementById(id); };
+  function text(node, value) { node.textContent = value === undefined || value === null ? "" : String(value); }
+  function norm(id) { return CR.normalize(SIGNALS[id], ((EV.signals || {})[id] || {}).value); }
+  function counted(id) { return CR.isCounted(id, EV, REG, sponsored); }
+
+  function link(url, label) {
+    var a = document.createElement("a");
+    a.href = url; a.textContent = label; a.rel = "noreferrer noopener"; a.target = "_blank";
+    return a;
+  }
+
+  var sourceById = {};
+  (EV.sources || []).forEach(function (s) { sourceById[s.id] = s; });
+
+  function header() {
+    text(el("brand"), (EV.entity && EV.entity.brand) || "Unknown company");
+    text(el("stage"), (EV.meta && EV.meta.stage) || "applying");
+    var q = EV.query || {}, e = EV.entity || {};
+    var bits = [];
+    if (q.role) bits.push(q.role);
+    if (q.level_guess) bits.push(q.level_guess);
+    if (q.city || q.market) bits.push([q.city, q.market].filter(Boolean).join(", "));
+    if (e.domain) bits.push(e.domain);
+    text(el("entity-line"), bits.join("  ·  "));
+
+    var chips = el("entity-chips");
+    function chip(label, cls) {
+      var span = document.createElement("span");
+      span.className = "chip" + (cls ? " " + cls : "");
+      span.textContent = label;
+      chips.appendChild(span);
+    }
+    if (e.employment_type && e.employment_type !== "direct") {
+      chip("employment: " + e.employment_type, e.employment_type === "vendor" ? "bad" : "warn");
+    }
+    if (typeof e.confidence === "number") {
+      chip("entity confidence " + e.confidence.toFixed(2), e.confidence < 0.7 ? "warn" : "");
+    }
+    ((e.tree && e.tree.entities) || []).forEach(function (ent) {
+      chip(ent.jurisdiction + " · " + (ent.ticker || ent.cin || ent.cik || ent.id));
+    });
+    if (q.jd_url) {
+      var jd = link(q.jd_url, "job posting");
+      jd.className = "chip";
+      chips.appendChild(jd);
+    }
+    text(el("generated"), "generated " + ((EV.meta && EV.meta.generated_at) || "").replace("T", " ").replace("Z", " UTC"));
+    el("entity-json").textContent = JSON.stringify({ entity: EV.entity, query: EV.query }, null, 2);
+  }
+
+  function drawSliders() {
+    var host = el("sliders");
+    host.innerHTML = "";
+    DIMENSIONS.forEach(function (d) {
+      var row = document.createElement("div");
+      row.className = "slider-row";
+      var name = document.createElement("label");
+      name.className = "dim-name";
+      name.textContent = LABELS[d] || d;
+      name.setAttribute("for", "w-" + d);
+      var input = document.createElement("input");
+      input.type = "range"; input.min = 0; input.max = 100; input.step = 5;
+      input.value = weights[d]; input.id = "w-" + d;
+      var val = document.createElement("span");
+      val.className = "weight-val"; val.textContent = weights[d];
+      input.addEventListener("input", function () {
+        weights[d] = parseInt(input.value, 10);
+        val.textContent = input.value;
+        paint();
+      });
+      row.appendChild(name); row.appendChild(input); row.appendChild(val);
+      host.appendChild(row);
+    });
+  }
+
+  function paint() {
+    var dims = CR.dimensionScores(EV, REG, sponsored);
+    var v = CR.verdict(dims, weights, DIMENSIONS);
+    text(el("score"), v === null ? "—" : (v * 10).toFixed(1));
+
+    var cov = CR.coverage(EV, REG, sponsored);
+    text(el("coverage"), "computed from " + cov.scored + " of " + cov.total + " signals");
+
+    var host = el("dims");
+    host.innerHTML = "";
+    DIMENSIONS.forEach(function (d) {
+      var row = document.createElement("div");
+      var excluded = d === "logistics" && !sponsored;
+      row.className = "dim" + (dims[d] === null ? " empty" : "") + (excluded ? " excluded" : "");
+      var name = document.createElement("div");
+      name.className = "dim-name";
+      name.textContent = LABELS[d] || d;
+      var barWrap = document.createElement("div");
+      barWrap.className = "bar";
+      var bar = document.createElement("span");
+      bar.style.width = dims[d] === null ? "0%" : Math.round(dims[d] * 100) + "%";
+      barWrap.appendChild(bar);
+      var val = document.createElement("div");
+      val.className = "dim-val";
+      val.textContent = dims[d] === null ? "n/a" : (dims[d] * 10).toFixed(1);
+      val.title = dims[d] === null
+        ? (excluded ? "excluded: you do not need sponsorship" : "no signals with evidence")
+        : dims[d + "__n"] + " signal(s)";
+      row.appendChild(name); row.appendChild(barWrap); row.appendChild(val);
+      host.appendChild(row);
+    });
+    var missing = DIMENSIONS.filter(function (d) { return dims[d] === null; });
+    text(el("dim-note"), missing.length
+      ? "No evidence for: " + missing.map(function (d) { return LABELS[d] || d; }).join(", ")
+        + ". These are excluded from the verdict, not scored as zero."
+      : "Every dimension has at least one sourced signal.");
+  }
+
+  function signalRows() {
+    var host = el("signal-rows");
+    Object.keys(SIGNALS).forEach(function (id) {
+      var spec = SIGNALS[id];
+      var s = (EV.signals || {})[id];
+      var tr = document.createElement("tr");
+      var value = norm(id);
+      var excluded = spec.conditional_on && !sponsored;
+
+      var td1 = document.createElement("td");
+      td1.appendChild(document.createTextNode(spec.label || id));
+      var small = document.createElement("div");
+      small.className = "faint mono";
+      small.textContent = id + (excluded ? " · informational only" : "");
+      td1.appendChild(small);
+      if (s && s.note) {
+        var note = document.createElement("div");
+        note.className = "faint";
+        note.style.fontSize = "12px";
+        note.textContent = s.note;
+        td1.appendChild(note);
+      }
+
+      var td2 = document.createElement("td");
+      td2.textContent = LABELS[spec.dimension] || spec.dimension;
+      var td3 = document.createElement("td");
+      td3.className = "num";
+      td3.textContent = !s || s.value === null || s.value === undefined ? "—" : String(s.value);
+      var td4 = document.createElement("td");
+      td4.className = "num";
+      td4.textContent = value === null ? "—" : value.toFixed(2);
+      var td5 = document.createElement("td");
+      var conf = s ? s.confidence : "none";
+      var chip = document.createElement("span");
+      chip.className = "chip" + (conf === "high" ? " good" : conf === "none" ? "" : " warn");
+      chip.textContent = conf;
+      td5.appendChild(chip);
+      var td6 = document.createElement("td");
+      ((s && s.source_ids) || []).forEach(function (sid, i) {
+        var src = sourceById[sid];
+        if (!src) return;
+        if (i) td6.appendChild(document.createTextNode(" "));
+        var a = link(src.url, sid);
+        a.className = "mono";
+        a.title = (src.publisher || "") + (src.published_at ? " · " + src.published_at : "");
+        td6.appendChild(a);
+      });
+      if (!td6.childNodes.length) {
+        var dash = document.createElement("span");
+        dash.className = "faint";
+        dash.textContent = "—";
+        td6.appendChild(dash);
+      }
+
+      [td1, td2, td3, td4, td5, td6].forEach(function (td) { tr.appendChild(td); });
+      if (!counted(id)) tr.style.opacity = ".62";
+      host.appendChild(tr);
+    });
+  }
+
+  function pillars() {
+    var host = el("pillars");
+    var names = Object.keys(EV.pillars || {});
+    if (!names.length) {
+      var none = document.createElement("p");
+      none.className = "empty-state";
+      none.textContent = "No pillars were researched.";
+      host.appendChild(none);
+      return;
+    }
+    names.sort(function (a, b) {
+      return (REG.pillar_order.indexOf(a) + 1 || 99) - (REG.pillar_order.indexOf(b) + 1 || 99);
+    });
+    names.forEach(function (name) {
+      var p = EV.pillars[name];
+      var section = document.createElement("div");
+      section.className = "pillar";
+      var head = document.createElement("div");
+      head.className = "pillar-head";
+      var h = document.createElement("h3");
+      h.textContent = PILLAR_LABELS[name] || name.replace(/_/g, " ");
+      var status = document.createElement("span");
+      status.className = "chip " + (p.status === "ok" ? "good" : p.status === "partial" ? "warn" : "bad");
+      status.textContent = p.status + ((p.claims || []).length ? " · " + p.claims.length + " claims" : "");
+      head.appendChild(h); head.appendChild(status);
+      section.appendChild(head);
+
+      (p.claims || []).forEach(function (c) {
+        var box = document.createElement("div");
+        box.className = "claim";
+        var body = document.createElement("p");
+        body.className = "claim-text";
+        body.textContent = c.text;
+        box.appendChild(body);
+        var cite = document.createElement("div");
+        cite.className = "cite";
+        var idTag = document.createElement("span");
+        idTag.className = "mono faint";
+        idTag.textContent = c.id;
+        cite.appendChild(idTag);
+        var conf = document.createElement("span");
+        conf.className = "chip" + (c.confidence === "high" ? " good" : c.confidence === "low" ? " warn" : "");
+        conf.textContent = c.confidence;
+        cite.appendChild(conf);
+        (c.source_ids || []).forEach(function (sid) {
+          var src = sourceById[sid];
+          if (!src) return;
+          var label = src.publisher || src.url.replace(/^https?:\/\//, "").split("/")[0];
+          var when = src.published_at || src.retrieved_at || "";
+          cite.appendChild(link(src.url, label + (when ? " · " + String(when).slice(0, 10) : " · undated")));
+        });
+        if (c.as_of) {
+          var asOf = document.createElement("span");
+          asOf.className = "faint";
+          asOf.textContent = "as of " + c.as_of;
+          cite.appendChild(asOf);
+        }
+        box.appendChild(cite);
+        section.appendChild(box);
+      });
+
+      (p.gaps || []).forEach(function (g) {
+        var box = document.createElement("div");
+        box.className = "gapbox";
+        box.style.marginTop = "10px";
+        var b = document.createElement("b");
+        b.textContent = "Gap: ";
+        box.appendChild(b);
+        box.appendChild(document.createTextNode(g.reason));
+        if (g.suggested_fallback) {
+          var fb = document.createElement("div");
+          fb.style.marginTop = "4px";
+          fb.className = "faint";
+          fb.textContent = "Fallback: " + g.suggested_fallback;
+          box.appendChild(fb);
+        }
+        section.appendChild(box);
+      });
+
+      if (!(p.claims || []).length && !(p.gaps || []).length) {
+        var empty = document.createElement("p");
+        empty.className = "empty-state";
+        empty.textContent = "Nothing found, and no reason recorded. Treat this pillar as unresearched.";
+        section.appendChild(empty);
+      }
+      host.appendChild(section);
+    });
+  }
+
+  function sources() {
+    var host = el("source-rows");
+    (EV.sources || []).forEach(function (s) {
+      var tr = document.createElement("tr");
+      function cell(node) { var td = document.createElement("td"); td.appendChild(node); tr.appendChild(td); }
+      var id = document.createElement("span");
+      id.className = "mono faint";
+      id.textContent = s.id;
+      cell(id);
+      cell(document.createTextNode(s.publisher || "—"));
+      cell(link(s.url, s.title || s.url.replace(/^https?:\/\//, "").slice(0, 78)));
+      var pub = document.createElement("span");
+      pub.className = s.published_at ? "num" : "num faint";
+      pub.textContent = s.published_at ? String(s.published_at).slice(0, 10) : "undated";
+      cell(pub);
+      var ret = document.createElement("span");
+      ret.className = "num faint";
+      ret.textContent = s.retrieved_at ? String(s.retrieved_at).slice(0, 10) : "—";
+      cell(ret);
+      host.appendChild(tr);
+    });
+  }
+
+  function narrative() {
+    var n = EV.narrative;
+    if (!n) {
+      var panel = el("narrative-panel");
+      panel.innerHTML = "";
+      var h = document.createElement("h2");
+      h.textContent = "Summary";
+      var p = document.createElement("p");
+      p.className = "empty-state";
+      p.textContent = "No narrative was written for this dossier.";
+      panel.appendChild(h);
+      panel.appendChild(p);
+      return;
+    }
+    text(el("summary"), n.summary || "");
+    function points(listId, items) {
+      var ul = el(listId);
+      (items || []).forEach(function (item) {
+        var li = document.createElement("li");
+        li.appendChild(document.createTextNode(item.text + " "));
+        (item.claim_ids || []).forEach(function (cid) {
+          var tag = document.createElement("span");
+          tag.className = "mono faint";
+          tag.style.marginLeft = "4px";
+          tag.textContent = "[" + cid + "]";
+          li.appendChild(tag);
+        });
+        ul.appendChild(li);
+      });
+      if (!(items || []).length) {
+        var li2 = document.createElement("li");
+        li2.className = "empty-state";
+        li2.textContent = "none recorded";
+        ul.appendChild(li2);
+      }
+    }
+    points("strengths", n.strengths);
+    points("concerns", n.concerns);
+    var qs = el("questions");
+    (n.questions_to_ask || []).forEach(function (q) {
+      var li = document.createElement("li");
+      li.textContent = q;
+      qs.appendChild(li);
+    });
+    if (!(n.questions_to_ask || []).length) el("questions-wrap").style.display = "none";
+  }
+
+  el("reset").addEventListener("click", function () {
+    weights = CR.defaultWeights(EV.profile, REG, sponsored);
+    drawSliders();
+    paint();
+  });
+  el("equal").addEventListener("click", function () {
+    DIMENSIONS.forEach(function (d) { weights[d] = 50; });
+    drawSliders();
+    paint();
+  });
+
+  header();
+  narrative();
+  drawSliders();
+  signalRows();
+  pillars();
+  sources();
+  paint();
+})();
+</script>
+</body>
+</html>
