@@ -1,0 +1,73 @@
+{
+ "sources": [
+  {
+   "id": "s1",
+   "url": "https://www.sec.gov/Archives/edgar/data/1067491/000119312526270520/infy-20260331.htm",
+   "publisher": "SEC EDGAR",
+   "type": "filing",
+   "retrieved_at": "2026-08-27T10:00:00Z",
+   "published_at": "2026-06-15",
+   "title": "Infosys Ltd Form 20-F, FY2026"
+  },
+  {
+   "id": "s2",
+   "url": "https://www.bseindia.com/stock-share-price/x/x/500209/corp-announcements/",
+   "publisher": "BSE India",
+   "type": "filing",
+   "retrieved_at": "2026-08-27T10:00:00Z",
+   "published_at": "2026-08-24",
+   "title": "BSE corporate announcements, scrip 500209"
+  }
+ ],
+ "pillars": {
+  "hiring_trend": {
+   "status": "partial",
+   "entity_id": "in:L85110KA1981PLC013115",
+   "claims": [
+    {
+     "id": "hiring_trend.0",
+     "text": "Headcount was 328,594 at 31 March 2026 against 323,578 a year earlier: growth of 1.5%, far below the revenue growth rate, which is what a services company doing more with the same people looks like.",
+     "source_ids": [
+      "s1"
+     ],
+     "confidence": "high",
+     "as_of": "2026-03-31"
+    },
+    {
+     "id": "hiring_trend.1",
+     "text": "310,887 of those 328,594 employees are service-delivery professionals, so the ratio of delivery to everything else is roughly 19 to 1 — worth knowing before assuming a platform-engineering career path.",
+     "source_ids": [
+      "s1"
+     ],
+     "confidence": "high",
+     "as_of": "2026-03-31"
+    },
+    {
+     "id": "hiring_trend.2",
+     "text": "A management change was disclosed to the exchange on 24 August 2026 under Regulation 30; senior churn immediately before an offer decision is worth asking about.",
+     "source_ids": [
+      "s2"
+     ],
+     "confidence": "medium",
+     "as_of": "2026-08-24"
+    }
+   ],
+   "gaps": [
+    {
+     "reason": "infosys.com returns HTTP 403 to this tool, so the careers board could not be snapshotted and neither role_repost_count_12m nor hiring_velocity_90d could be computed",
+     "suggested_fallback": "open the careers site in a browser and pass the board URL explicitly: `snapshot.py --domain infosys.com --careers-url <url>`"
+    }
+   ]
+  }
+ },
+ "signals": {
+  "headcount_trend_12m": {
+   "value": 0.0155,
+   "confidence": "high",
+   "source_ids": [
+    "s1"
+   ],
+   "note": "328,594 vs 323,578 employees year on year, from the company's own 20-F"
+  }
+ }
+}

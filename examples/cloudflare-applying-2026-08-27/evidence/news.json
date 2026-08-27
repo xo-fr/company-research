@@ -1,0 +1,101 @@
+{
+ "sources": [
+  {
+   "id": "s1",
+   "url": "https://www.sec.gov/Archives/edgar/data/1477333/000147733326000033/cloud-20260507.htm",
+   "publisher": "SEC EDGAR",
+   "type": "filing",
+   "retrieved_at": "2026-08-27T09:30:00Z",
+   "published_at": "2026-05-07",
+   "title": "Cloudflare 8-K, Item 2.05 — Costs Associated with Exit or Disposal Activities"
+  },
+  {
+   "id": "s2",
+   "url": "https://news.ycombinator.com/item?id=44133046",
+   "publisher": "Hacker News",
+   "type": "forum",
+   "retrieved_at": "2026-08-27T09:30:00Z",
+   "published_at": "2026-05-07",
+   "title": "Cloudflare to cut about 20% of its workforce (1,356 points, 998 comments)"
+  },
+  {
+   "id": "s3",
+   "url": "https://www.sec.gov/Archives/edgar/data/1477333/000147733326000009/cloud-20260206.htm",
+   "publisher": "SEC EDGAR",
+   "type": "filing",
+   "retrieved_at": "2026-08-27T09:30:00Z",
+   "published_at": "2026-02-10",
+   "title": "Cloudflare 8-K, Item 5.02 — Chief Legal Officer resignation"
+  },
+  {
+   "id": "s4",
+   "url": "https://news.ycombinator.com/item?id=42174204",
+   "publisher": "Hacker News",
+   "type": "forum",
+   "retrieved_at": "2026-08-27T09:30:00Z",
+   "published_at": "2025-11-18",
+   "title": "Cloudflare outage on November 18, 2025 post mortem (1,465 points)"
+  }
+ ],
+ "pillars": {
+  "news": {
+   "status": "ok",
+   "entity_id": "us:0001477333",
+   "claims": [
+    {
+     "id": "news.0",
+     "text": "On 7 May 2026 Cloudflare told the SEC it expects to cut approximately 20% of its workforce as part of a shift to what it calls an 'agentic AI-first operating model', with charges of $140–150m, substantially complete by the end of Q3 FY2026.",
+     "source_ids": [
+      "s1",
+      "s2"
+     ],
+     "confidence": "high",
+     "as_of": "2026-05-07"
+    },
+    {
+     "id": "news.1",
+     "text": "Roughly $105–110m of that charge is cash for notice periods and severance and $35–40m is non-cash share-vesting expense, which dates the bulk of the departures to Q2–Q3 FY2026 rather than a rolling programme.",
+     "source_ids": [
+      "s1"
+     ],
+     "confidence": "high",
+     "as_of": "2026-05-07"
+    },
+    {
+     "id": "news.2",
+     "text": "The Chief Legal Officer resigned in February 2026 after nearly ten years, staying on as a senior adviser, with an internal successor named in the same filing — an orderly transition rather than an abrupt exit.",
+     "source_ids": [
+      "s3"
+     ],
+     "confidence": "high",
+     "as_of": "2026-02-06"
+    },
+    {
+     "id": "news.3",
+     "text": "A global outage on 18 November 2025 drew 1,650 comments on Hacker News and a public post-mortem the same day; reliability incidents at this company are public events, and engineering answers for them in the open.",
+     "source_ids": [
+      "s4"
+     ],
+     "confidence": "medium",
+     "as_of": "2025-11-18"
+    }
+   ],
+   "gaps": [
+    {
+     "reason": "GDELT was unreachable from this machine during the run (TLS handshake timeout), so wire coverage outside SEC filings and Hacker News is missing",
+     "suggested_fallback": "re-run news with `python scripts/doctor.py --only gdelt` to confirm the source is live, then repeat the pillar"
+    }
+   ]
+  }
+ },
+ "signals": {
+  "layoff_events_24m": {
+   "value": 1,
+   "confidence": "high",
+   "source_ids": [
+    "s1"
+   ],
+   "note": "one disclosed workforce reduction (May 2026); no Item 2.05 filing in the preceding 24 months"
+  }
+ }
+}

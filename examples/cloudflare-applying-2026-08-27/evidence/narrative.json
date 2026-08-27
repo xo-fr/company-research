@@ -1,0 +1,68 @@
+{
+ "narrative": {
+  "summary": "Cloudflare is a fast-growing infrastructure company that has never turned a GAAP profit and announced a ~20% workforce reduction in May 2026, framed as a move to an AI-first operating model. The balance sheet comfortably absorbs the $105–110m cash cost, and the board still carried 306 open roles in August 2026, so this is a re-shaping rather than a retreat. The engineering work is real and public: the Workers runtime and SDK are developed in the open and were committed to this week. The open question is which side of that re-shaping the team behind this posting sits on.",
+  "strengths": [
+   {
+    "text": "Six straight years of 27%+ revenue growth, most recently $2.17bn (+29.9%)",
+    "claim_ids": [
+     "overview.1",
+     "financial_health.0"
+    ]
+   },
+   {
+    "text": "Cash grew to $944m in FY2025, so the restructuring is affordable without new financing",
+    "claim_ids": [
+     "financial_health.1"
+    ]
+   },
+   {
+    "text": "Engineering happens in public — 575 repos, the production Workers runtime among them, actively committed",
+    "claim_ids": [
+     "culture.0"
+    ]
+   },
+   {
+    "text": "R&D at ~24% of revenue means the systems work is the product, not a cost centre",
+    "claim_ids": [
+     "overview.3"
+    ]
+   }
+  ],
+  "concerns": [
+   {
+    "text": "A 20% workforce reduction was disclosed to the SEC four months before this posting was live",
+    "claim_ids": [
+     "news.0",
+     "news.1"
+    ]
+   },
+   {
+    "text": "GAAP losses widened again in FY2025 after narrowing in FY2024, and the company names this first among its own risks",
+    "claim_ids": [
+     "overview.2",
+     "financial_health.2",
+     "financial_health.3"
+    ]
+   },
+   {
+    "text": "Hiring and cutting simultaneously means the roles that survive are the ones aligned to the new operating model — ask which this is",
+    "claim_ids": [
+     "hiring_trend.0",
+     "culture.2"
+    ]
+   },
+   {
+    "text": "Two-thirds of open roles are Hybrid or In-Office; remote flexibility appears to be narrowing",
+    "claim_ids": [
+     "hiring_trend.1"
+    ]
+   }
+  ],
+  "questions_to_ask": [
+   "Was this team affected by the May 2026 reduction, and is this role a backfill or new headcount?",
+   "What does 'agentic AI-first operating model' change about how this team actually works day to day?",
+   "Which of the public repositories does this team own, and what share of the work lands in them?",
+   "What is the on-call rotation depth for this service after the reduction?"
+  ]
+ }
+}

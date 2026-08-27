@@ -1,0 +1,61 @@
+{
+ "narrative": {
+  "summary": "Infosys is a financially solid, cash-generative services company whose growth has flattened to about 4% a year while margins hold near 27%. Headcount grew 1.5% against that, so the offer sits in a business doing more with roughly the same number of people. Compensation cannot be answered from any free structured source for the Indian market, and this dossier does not guess: the number to compare against is your current package, not a market median someone invented. The company's own filing is unusually candid about attrition, cyclical pay increases and return-to-office friction, and those are the three things worth pressing on before accepting.",
+  "strengths": [
+   {
+    "text": "Cash of $2.86bn, ROE of 36.7% and a 27% operating margin: no funding risk here",
+    "claim_ids": [
+     "financial_health.2"
+    ]
+   },
+   {
+    "text": "Margins are being defended as growth slows, rather than earnings falling with revenue",
+    "claim_ids": [
+     "financial_health.1"
+    ]
+   },
+   {
+    "text": "A deep US sponsorship record (1,900 LCA filings in FY2025) if a transfer is ever on the table",
+    "claim_ids": [
+     "compensation.0"
+    ]
+   }
+  ],
+  "concerns": [
+   {
+    "text": "Revenue growth has fallen to 3.9%, well below the six-year 8.6% CAGR",
+    "claim_ids": [
+     "financial_health.0"
+    ]
+   },
+   {
+    "text": "R&D is 0.8% of revenue and 95% of staff are in service delivery — this is a delivery career, not a product one",
+    "claim_ids": [
+     "financial_health.3",
+     "hiring_trend.1"
+    ]
+   },
+   {
+    "text": "The company names delayed wage increases and hybrid-work friction as attrition drivers in its own 20-F",
+    "claim_ids": [
+     "compensation.2",
+     "reviews.0",
+     "reviews.1"
+    ]
+   },
+   {
+    "text": "Compensation for the Indian market is a genuine data gap, and a management change was filed three days before this dossier",
+    "claim_ids": [
+     "hiring_trend.2"
+    ]
+   }
+  ],
+  "questions_to_ask": [
+   "Which client account is this role attached to, and how long does that contract run?",
+   "What was voluntary attrition on that account over the last four quarters?",
+   "Is the compensation revision cycle on schedule this year, and when was the last one?",
+   "What are the return-to-office and client-hours expectations for this specific engagement?",
+   "How does someone in this role move from delivery into platform or product work here?"
+  ]
+ }
+}

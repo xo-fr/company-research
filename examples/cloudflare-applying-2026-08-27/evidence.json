@@ -1,0 +1,458 @@
+{
+  "meta": {
+    "generated_at": "2026-08-27T05:10:24Z",
+    "stage": "applying",
+    "spec_version": "1.0.0",
+    "generator": "company-research/0.1.0"
+  },
+  "entity": {
+    "brand": "Cloudflare",
+    "domain": "cloudflare.com",
+    "resolved_entity_id": "us:0001477333",
+    "employment_type": "direct",
+    "employment_type_reason": "single-jurisdiction entity",
+    "confidence": 1.0,
+    "tree": {
+      "brand": {
+        "wikidata_qid": "Q5133366",
+        "aliases": [
+          "Cloudflare",
+          "Cloudflare, Inc."
+        ]
+      },
+      "entities": [
+        {
+          "id": "us:0001477333",
+          "jurisdiction": "US",
+          "legal_name": "Cloudflare, Inc.",
+          "cik": "0001477333",
+          "ticker": "NET",
+          "source": "wikidata:P5531"
+        }
+      ]
+    },
+    "notes": []
+  },
+  "query": {
+    "role": "Senior Distributed Systems Engineer",
+    "level_guess": "Senior / L5",
+    "market": "US",
+    "city": "In-Office (US)",
+    "jd_url": "https://boards.greenhouse.io/cloudflare/jobs/8066716"
+  },
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://github.com/cloudflare",
+      "publisher": "GitHub",
+      "type": "company_site",
+      "retrieved_at": "2026-08-27T09:30:00Z",
+      "title": "github.com/cloudflare — 575 public repositories"
+    },
+    {
+      "id": "s2",
+      "url": "https://github.com/cloudflare/workerd",
+      "publisher": "GitHub",
+      "type": "company_site",
+      "retrieved_at": "2026-08-27T09:30:00Z",
+      "published_at": "2026-08-27",
+      "title": "workerd — the Workers runtime, 8,643 stars, C++"
+    },
+    {
+      "id": "s3",
+      "url": "https://news.ycombinator.com/item?id=42174204",
+      "publisher": "Hacker News",
+      "type": "forum",
+      "retrieved_at": "2026-08-27T09:30:00Z",
+      "published_at": "2025-11-18",
+      "title": "Cloudflare outage on November 18, 2025 post mortem"
+    },
+    {
+      "id": "s4",
+      "url": "https://news.ycombinator.com/item?id=44133046",
+      "publisher": "Hacker News",
+      "type": "forum",
+      "retrieved_at": "2026-08-27T09:30:00Z",
+      "published_at": "2026-05-07",
+      "title": "Cloudflare to cut about 20% of its workforce"
+    },
+    {
+      "id": "s5",
+      "url": "https://www.sec.gov/Archives/edgar/data/1477333/000147733326000016/cloud-20251231.htm",
+      "publisher": "SEC EDGAR",
+      "type": "filing",
+      "retrieved_at": "2026-08-27T09:30:00Z",
+      "published_at": "2026-02-26",
+      "title": "Cloudflare, Inc. Form 10-K, FY2025"
+    },
+    {
+      "id": "s6",
+      "url": "https://www.sec.gov/Archives/edgar/data/1477333/000147733326000033/cloud-20260507.htm",
+      "publisher": "SEC EDGAR",
+      "type": "filing",
+      "retrieved_at": "2026-08-27T09:30:00Z",
+      "published_at": "2026-05-07",
+      "title": "Cloudflare 8-K, Item 2.05"
+    },
+    {
+      "id": "s7",
+      "url": "https://boards.greenhouse.io/cloudflare",
+      "publisher": "Cloudflare (Greenhouse)",
+      "type": "posting",
+      "retrieved_at": "2026-08-27T09:30:00Z",
+      "published_at": "2026-08-27",
+      "title": "Cloudflare job board — 306 open roles"
+    },
+    {
+      "id": "s8",
+      "url": "https://www.sec.gov/Archives/edgar/data/1477333/000147733326000009/cloud-20260206.htm",
+      "publisher": "SEC EDGAR",
+      "type": "filing",
+      "retrieved_at": "2026-08-27T09:30:00Z",
+      "published_at": "2026-02-10",
+      "title": "Cloudflare 8-K, Item 5.02 — Chief Legal Officer resignation"
+    }
+  ],
+  "pillars": {
+    "culture": {
+      "status": "partial",
+      "claims": [
+        {
+          "id": "culture.0",
+          "text": "The public GitHub organisation holds 575 repositories and six of the ten most recently touched — including the Workers runtime (workerd, C++, 8.6k stars) and workers-sdk — had commits within the last two days, so the open-source presence is live work rather than a shop window.",
+          "source_ids": [
+            "s1",
+            "s2"
+          ],
+          "confidence": "high",
+          "as_of": "2026-08-27"
+        },
+        {
+          "id": "culture.1",
+          "text": "The company publishes detailed post-mortems on its own outages within a day, and its engineers answer questions in the resulting public threads — useful evidence about how incidents are handled internally.",
+          "source_ids": [
+            "s3"
+          ],
+          "confidence": "medium",
+          "as_of": "2025-11-18"
+        },
+        {
+          "id": "culture.2",
+          "text": "The May 2026 restructuring is framed by the company itself as a move to an 'AI-first operating model', and the public discussion of it is dominated by whether that framing describes a change in how work is done or a cost cut wearing a strategy label. Worth asking directly in interviews.",
+          "source_ids": [
+            "s4"
+          ],
+          "confidence": "low",
+          "as_of": "2026-05-07"
+        }
+      ],
+      "gaps": [
+        {
+          "reason": "fewer than three independent, dated, first-hand employee accounts were found, so wlb_sentiment is left unset rather than estimated from thread tone",
+          "suggested_fallback": "ask the recruiter for two current engineers on the team to speak to, and search for recent conference talks by the hiring team"
+        }
+      ],
+      "entity_id": "us:0001477333"
+    },
+    "financial_health": {
+      "status": "ok",
+      "claims": [
+        {
+          "id": "financial_health.0",
+          "text": "Six consecutive years of revenue growth with no year below 27%: $431m, $656m, $975m, $1.30bn, $1.67bn, $2.17bn (FY2020–FY2025, XBRL).",
+          "source_ids": [
+            "s5"
+          ],
+          "confidence": "high",
+          "as_of": "2025-12-31"
+        },
+        {
+          "id": "financial_health.1",
+          "text": "Cash and equivalents rose from $148m to $944m during FY2025, so the $105–110m cash cost of the 2026 restructuring is comfortably covered.",
+          "source_ids": [
+            "s5",
+            "s6"
+          ],
+          "confidence": "high",
+          "as_of": "2025-12-31"
+        },
+        {
+          "id": "financial_health.2",
+          "text": "Net loss narrowed to $79m in FY2024 and widened again to $102m in FY2025, so the trend toward profitability reversed in the most recent year.",
+          "source_ids": [
+            "s5"
+          ],
+          "confidence": "high",
+          "as_of": "2025-12-31"
+        },
+        {
+          "id": "financial_health.3",
+          "text": "The 10-K's own risk factors lead with 'We have a history of net losses and may not be able to achieve or sustain profitability' and 'We have experienced rapid revenue growth, which may not be indicative of our future performance'.",
+          "source_ids": [
+            "s5"
+          ],
+          "confidence": "high",
+          "as_of": "2026-02-26"
+        }
+      ],
+      "gaps": [],
+      "entity_id": "us:0001477333"
+    },
+    "hiring_trend": {
+      "status": "partial",
+      "claims": [
+        {
+          "id": "hiring_trend.0",
+          "text": "The board carried 306 open roles on 27 August 2026 — sixteen weeks after the company told the SEC it was cutting about 20% of its workforce. Hiring and cutting are running at the same time, which usually means a shift in what is being hired for rather than a freeze.",
+          "source_ids": [
+            "s7",
+            "s6"
+          ],
+          "confidence": "high",
+          "as_of": "2026-08-27"
+        },
+        {
+          "id": "hiring_trend.1",
+          "text": "203 of the 306 open roles are listed as Hybrid and 44 as In-Office, against 44 Distributed and 3 in Remote India: this is a company hiring back toward offices.",
+          "source_ids": [
+            "s7"
+          ],
+          "confidence": "high",
+          "as_of": "2026-08-27"
+        },
+        {
+          "id": "hiring_trend.2",
+          "text": "Against 5,156 employees at the end of FY2025, 306 open roles is a ~6% expansion of the headcount that remains after a 20% reduction — sizeable, and concentrated in engineering titles.",
+          "source_ids": [
+            "s7",
+            "s5"
+          ],
+          "confidence": "medium",
+          "as_of": "2026-08-27"
+        }
+      ],
+      "gaps": [
+        {
+          "reason": "this is the first local snapshot for cloudflare.com, so role_repost_count_12m and hiring_velocity_90d cannot be computed yet; the Wayback series for the old board URL has only one usable capture because the board moved hosts",
+          "suggested_fallback": "re-run the dossier in three weeks — snapshot.py appends automatically on every run — or try `wayback_jobs.py --url 'job-boards.greenhouse.io/cloudflare*'`"
+        }
+      ],
+      "entity_id": "us:0001477333"
+    },
+    "news": {
+      "status": "ok",
+      "claims": [
+        {
+          "id": "news.0",
+          "text": "On 7 May 2026 Cloudflare told the SEC it expects to cut approximately 20% of its workforce as part of a shift to what it calls an 'agentic AI-first operating model', with charges of $140–150m, substantially complete by the end of Q3 FY2026.",
+          "source_ids": [
+            "s6",
+            "s4"
+          ],
+          "confidence": "high",
+          "as_of": "2026-05-07"
+        },
+        {
+          "id": "news.1",
+          "text": "Roughly $105–110m of that charge is cash for notice periods and severance and $35–40m is non-cash share-vesting expense, which dates the bulk of the departures to Q2–Q3 FY2026 rather than a rolling programme.",
+          "source_ids": [
+            "s6"
+          ],
+          "confidence": "high",
+          "as_of": "2026-05-07"
+        },
+        {
+          "id": "news.2",
+          "text": "The Chief Legal Officer resigned in February 2026 after nearly ten years, staying on as a senior adviser, with an internal successor named in the same filing — an orderly transition rather than an abrupt exit.",
+          "source_ids": [
+            "s8"
+          ],
+          "confidence": "high",
+          "as_of": "2026-02-06"
+        },
+        {
+          "id": "news.3",
+          "text": "A global outage on 18 November 2025 drew 1,650 comments on Hacker News and a public post-mortem the same day; reliability incidents at this company are public events, and engineering answers for them in the open.",
+          "source_ids": [
+            "s3"
+          ],
+          "confidence": "medium",
+          "as_of": "2025-11-18"
+        }
+      ],
+      "gaps": [
+        {
+          "reason": "GDELT was unreachable from this machine during the run (TLS handshake timeout), so wire coverage outside SEC filings and Hacker News is missing",
+          "suggested_fallback": "re-run news with `python scripts/doctor.py --only gdelt` to confirm the source is live, then repeat the pillar"
+        }
+      ],
+      "entity_id": "us:0001477333"
+    },
+    "overview": {
+      "status": "ok",
+      "claims": [
+        {
+          "id": "overview.0",
+          "text": "Cloudflare sells network, security and developer-platform services from its own global edge, positioning itself against on-premises hardware vendors and the hyperscalers' equivalents (10-K Item 1, Business).",
+          "source_ids": [
+            "s5"
+          ],
+          "confidence": "high",
+          "as_of": "2026-02-26"
+        },
+        {
+          "id": "overview.1",
+          "text": "Revenue reached $2.17bn in FY2025, up 29.9% year on year and compounding at 38% since FY2020 ($431m).",
+          "source_ids": [
+            "s5"
+          ],
+          "confidence": "high",
+          "as_of": "2025-12-31"
+        },
+        {
+          "id": "overview.2",
+          "text": "The company has never been profitable on a GAAP basis: operating loss was $207m in FY2025, wider than FY2024's $155m, and it names its history of net losses as its first enumerated risk factor.",
+          "source_ids": [
+            "s5"
+          ],
+          "confidence": "high",
+          "as_of": "2025-12-31"
+        },
+        {
+          "id": "overview.3",
+          "text": "R&D spend rose every year from $127m (FY2020) to $512m (FY2025), roughly 24% of revenue — an engineering-heavy cost base, which is where a systems role sits.",
+          "source_ids": [
+            "s5"
+          ],
+          "confidence": "high",
+          "as_of": "2025-12-31"
+        },
+        {
+          "id": "overview.4",
+          "text": "Headcount was 5,156 full-time employees at 31 December 2025, of whom 2,452 were outside the United States (10-K, Human Capital Resources).",
+          "source_ids": [
+            "s5"
+          ],
+          "confidence": "high",
+          "as_of": "2025-12-31"
+        }
+      ],
+      "gaps": [],
+      "entity_id": "us:0001477333"
+    }
+  },
+  "signals": {
+    "eng_output_signal": {
+      "value": 0.9,
+      "confidence": "high",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "575 public repos, six pushed within 48 hours, including the production Workers runtime"
+    },
+    "stack_currency": {
+      "value": 0.85,
+      "confidence": "medium",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Rust/C++/TypeScript edge runtime work; the posting's stack matches what the public repos actually run"
+    },
+    "revenue_trend": {
+      "value": "growing",
+      "confidence": "high",
+      "source_ids": [
+        "s5"
+      ],
+      "note": "+29.9% year on year, 38% CAGR across six annual filings"
+    },
+    "layoff_events_24m": {
+      "value": 1,
+      "confidence": "high",
+      "source_ids": [
+        "s6"
+      ],
+      "note": "one disclosed workforce reduction (May 2026); no Item 2.05 filing in the preceding 24 months"
+    }
+  },
+  "narrative": {
+    "summary": "Cloudflare is a fast-growing infrastructure company that has never turned a GAAP profit and announced a ~20% workforce reduction in May 2026, framed as a move to an AI-first operating model. The balance sheet comfortably absorbs the $105–110m cash cost, and the board still carried 306 open roles in August 2026, so this is a re-shaping rather than a retreat. The engineering work is real and public: the Workers runtime and SDK are developed in the open and were committed to this week. The open question is which side of that re-shaping the team behind this posting sits on.",
+    "strengths": [
+      {
+        "text": "Six straight years of 27%+ revenue growth, most recently $2.17bn (+29.9%)",
+        "claim_ids": [
+          "overview.1",
+          "financial_health.0"
+        ]
+      },
+      {
+        "text": "Cash grew to $944m in FY2025, so the restructuring is affordable without new financing",
+        "claim_ids": [
+          "financial_health.1"
+        ]
+      },
+      {
+        "text": "Engineering happens in public — 575 repos, the production Workers runtime among them, actively committed",
+        "claim_ids": [
+          "culture.0"
+        ]
+      },
+      {
+        "text": "R&D at ~24% of revenue means the systems work is the product, not a cost centre",
+        "claim_ids": [
+          "overview.3"
+        ]
+      }
+    ],
+    "concerns": [
+      {
+        "text": "A 20% workforce reduction was disclosed to the SEC four months before this posting was live",
+        "claim_ids": [
+          "news.0",
+          "news.1"
+        ]
+      },
+      {
+        "text": "GAAP losses widened again in FY2025 after narrowing in FY2024, and the company names this first among its own risks",
+        "claim_ids": [
+          "overview.2",
+          "financial_health.2",
+          "financial_health.3"
+        ]
+      },
+      {
+        "text": "Hiring and cutting simultaneously means the roles that survive are the ones aligned to the new operating model — ask which this is",
+        "claim_ids": [
+          "hiring_trend.0",
+          "culture.2"
+        ]
+      },
+      {
+        "text": "Two-thirds of open roles are Hybrid or In-Office; remote flexibility appears to be narrowing",
+        "claim_ids": [
+          "hiring_trend.1"
+        ]
+      }
+    ],
+    "questions_to_ask": [
+      "Was this team affected by the May 2026 reduction, and is this role a backfill or new headcount?",
+      "What does 'agentic AI-first operating model' change about how this team actually works day to day?",
+      "Which of the public repositories does this team own, and what share of the work lands in them?",
+      "What is the on-call rotation depth for this service after the reduction?"
+    ]
+  },
+  "profile": {
+    "priorities": [
+      "stability",
+      "learning",
+      "comp",
+      "wlb",
+      "growth"
+    ],
+    "work_authorization": {
+      "US": "authorized"
+    },
+    "base_market": "US"
+  }
+}

@@ -1,0 +1,120 @@
+{
+ "meta": {
+  "generated_at": "2026-08-27T09:30:00Z",
+  "stage": "applying",
+  "spec_version": "1.0.0"
+ },
+ "entity": {
+  "brand": "Cloudflare",
+  "domain": "cloudflare.com",
+  "resolved_entity_id": "us:0001477333",
+  "employment_type": "direct",
+  "employment_type_reason": "single-jurisdiction entity",
+  "confidence": 1.0,
+  "tree": {
+   "brand": {
+    "wikidata_qid": "Q5133366",
+    "aliases": [
+     "Cloudflare",
+     "Cloudflare, Inc."
+    ]
+   },
+   "entities": [
+    {
+     "id": "us:0001477333",
+     "jurisdiction": "US",
+     "legal_name": "Cloudflare, Inc.",
+     "cik": "0001477333",
+     "ticker": "NET",
+     "source": "wikidata:P5531"
+    }
+   ]
+  },
+  "notes": []
+ },
+ "query": {
+  "role": "Senior Distributed Systems Engineer",
+  "level_guess": "Senior / L5",
+  "market": "US",
+  "city": "In-Office (US)",
+  "jd_url": "https://boards.greenhouse.io/cloudflare/jobs/8066716"
+ },
+ "profile": {
+  "priorities": [
+   "stability",
+   "learning",
+   "comp",
+   "wlb",
+   "growth"
+  ],
+  "work_authorization": {
+   "US": "authorized"
+  },
+  "base_market": "US"
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "url": "https://www.sec.gov/Archives/edgar/data/1477333/000147733326000016/cloud-20251231.htm",
+   "publisher": "SEC EDGAR",
+   "type": "filing",
+   "retrieved_at": "2026-08-27T09:30:00Z",
+   "published_at": "2026-02-26",
+   "title": "Cloudflare, Inc. Form 10-K, FY2025"
+  }
+ ],
+ "pillars": {
+  "overview": {
+   "status": "ok",
+   "entity_id": "us:0001477333",
+   "claims": [
+    {
+     "id": "overview.0",
+     "text": "Cloudflare sells network, security and developer-platform services from its own global edge, positioning itself against on-premises hardware vendors and the hyperscalers' equivalents (10-K Item 1, Business).",
+     "source_ids": [
+      "s1"
+     ],
+     "confidence": "high",
+     "as_of": "2026-02-26"
+    },
+    {
+     "id": "overview.1",
+     "text": "Revenue reached $2.17bn in FY2025, up 29.9% year on year and compounding at 38% since FY2020 ($431m).",
+     "source_ids": [
+      "s1"
+     ],
+     "confidence": "high",
+     "as_of": "2025-12-31"
+    },
+    {
+     "id": "overview.2",
+     "text": "The company has never been profitable on a GAAP basis: operating loss was $207m in FY2025, wider than FY2024's $155m, and it names its history of net losses as its first enumerated risk factor.",
+     "source_ids": [
+      "s1"
+     ],
+     "confidence": "high",
+     "as_of": "2025-12-31"
+    },
+    {
+     "id": "overview.3",
+     "text": "R&D spend rose every year from $127m (FY2020) to $512m (FY2025), roughly 24% of revenue — an engineering-heavy cost base, which is where a systems role sits.",
+     "source_ids": [
+      "s1"
+     ],
+     "confidence": "high",
+     "as_of": "2025-12-31"
+    },
+    {
+     "id": "overview.4",
+     "text": "Headcount was 5,156 full-time employees at 31 December 2025, of whom 2,452 were outside the United States (10-K, Human Capital Resources).",
+     "source_ids": [
+      "s1"
+     ],
+     "confidence": "high",
+     "as_of": "2025-12-31"
+    }
+   ],
+   "gaps": []
+  }
+ }
+}

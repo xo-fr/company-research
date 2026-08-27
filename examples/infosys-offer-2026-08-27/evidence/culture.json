@@ -1,0 +1,93 @@
+{
+ "sources": [
+  {
+   "id": "s1",
+   "url": "https://github.com/Infosys",
+   "publisher": "GitHub",
+   "type": "company_site",
+   "retrieved_at": "2026-08-27T10:00:00Z",
+   "published_at": "2026-08-27",
+   "title": "github.com/Infosys — 102 public repositories"
+  },
+  {
+   "id": "s2",
+   "url": "https://github.com/Infosys/esignet",
+   "publisher": "GitHub",
+   "type": "company_site",
+   "retrieved_at": "2026-08-27T10:00:00Z",
+   "published_at": "2026-08-26",
+   "title": "esignet — identity component, actively committed"
+  },
+  {
+   "id": "s3",
+   "url": "https://news.ycombinator.com/item?id=33619562",
+   "publisher": "Hacker News",
+   "type": "forum",
+   "retrieved_at": "2026-08-27T10:00:00Z",
+   "published_at": "2022-11-16",
+   "title": "Infosys leaked FullAdminAccess AWS keys on PyPI for over a year (502 points)"
+  },
+  {
+   "id": "s4",
+   "url": "https://www.sec.gov/Archives/edgar/data/1067491/000119312526270520/infy-20260331.htm",
+   "publisher": "SEC EDGAR",
+   "type": "filing",
+   "retrieved_at": "2026-08-27T10:00:00Z",
+   "published_at": "2026-06-15",
+   "title": "Infosys Ltd Form 20-F, FY2026"
+  }
+ ],
+ "pillars": {
+  "culture": {
+   "status": "partial",
+   "entity_id": "in:L85110KA1981PLC013115",
+   "claims": [
+    {
+     "id": "culture.0",
+     "text": "The public GitHub organisation has 102 repositories and the recently active ones are digital-public-infrastructure components (esignet, inji-certify, mimoto), committed to within the last two days — real engineering, but almost none of it carries external stars or contributors.",
+     "source_ids": [
+      "s1",
+      "s2"
+     ],
+     "confidence": "high",
+     "as_of": "2026-08-27"
+    },
+    {
+     "id": "culture.1",
+     "text": "The loudest public engineering discussion of this company remains a 2022 credential-leak thread; there is little recent first-hand engineering commentary either way, which for a 328,000-person company means the public record is close to silent.",
+     "source_ids": [
+      "s3"
+     ],
+     "confidence": "low",
+     "as_of": "2022-11-16"
+    },
+    {
+     "id": "culture.2",
+     "text": "The company describes AI adoption as a strategic risk in its own filing ('Our investments in or use of AI technologies may not be successful'), which is a more candid framing than the marketing site offers.",
+     "source_ids": [
+      "s4"
+     ],
+     "confidence": "high",
+     "as_of": "2026-06-15"
+    }
+   ],
+   "gaps": [
+    {
+     "reason": "no dated first-hand employee accounts from the last 18 months were found, so wlb_sentiment is unset; at this headcount, absence of public commentary is not evidence either way",
+     "suggested_fallback": "ask to speak to two engineers on the specific delivery account, and ask what the on-call and client-hours expectations are for that account rather than for the company"
+    }
+   ]
+  }
+ },
+ "signals": {
+  "eng_output_signal": {
+   "value": 0.4,
+   "confidence": "medium",
+   "source_ids": [
+    "s1",
+    "s2"
+   ],
+   "note": "active public repos, but narrow in scope and with negligible outside adoption for a company of this size"
+  }
+ }
+}

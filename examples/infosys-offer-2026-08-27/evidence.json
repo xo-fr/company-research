@@ -1,0 +1,436 @@
+{
+  "meta": {
+    "generated_at": "2026-08-27T05:15:08Z",
+    "stage": "offer",
+    "spec_version": "1.0.0",
+    "generator": "company-research/0.1.0"
+  },
+  "entity": {
+    "brand": "Infosys",
+    "domain": "infosys.com",
+    "resolved_entity_id": "in:L85110KA1981PLC013115",
+    "employment_type": "direct",
+    "employment_type_reason": "Indian entity with no foreign parent found",
+    "confidence": 0.75,
+    "tree": {
+      "brand": {
+        "wikidata_qid": "Q495706",
+        "aliases": [
+          "Infosys",
+          "Infosys Limited",
+          "Infosys Technologies"
+        ]
+      },
+      "entities": [
+        {
+          "id": "us:0001067491",
+          "jurisdiction": "US",
+          "legal_name": "Infosys Ltd",
+          "cik": "0001067491",
+          "ticker": "INFY",
+          "source": "sec:company_tickers.json"
+        },
+        {
+          "id": "in:L85110KA1981PLC013115",
+          "jurisdiction": "IN",
+          "legal_name": "Infosys Ltd",
+          "cin": "L85110KA1981PLC013115",
+          "bse_scrip_code": "500209",
+          "isin": "INE009A01021",
+          "source": "bse"
+        }
+      ]
+    },
+    "notes": [
+      "one brand, two filers: the 20-F is the richer document, but the India entity is the employer"
+    ]
+  },
+  "query": {
+    "role": "Technology Lead (Backend)",
+    "level_guess": "Technology Lead / JL6",
+    "market": "IN",
+    "city": "Bengaluru"
+  },
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://www.dol.gov/agencies/eta/foreign-labor/performance",
+      "publisher": "US Department of Labor (OFLC)",
+      "type": "dataset",
+      "retrieved_at": "2026-08-27T10:00:00Z",
+      "published_at": "2025-10-01",
+      "title": "LCA Disclosure Data FY2025 Q4"
+    },
+    {
+      "id": "s2",
+      "url": "https://www.sec.gov/Archives/edgar/data/1067491/000119312526270520/infy-20260331.htm",
+      "publisher": "SEC EDGAR",
+      "type": "filing",
+      "retrieved_at": "2026-08-27T10:00:00Z",
+      "published_at": "2026-06-15",
+      "title": "Infosys Ltd Form 20-F, FY2026"
+    },
+    {
+      "id": "s3",
+      "url": "https://github.com/Infosys",
+      "publisher": "GitHub",
+      "type": "company_site",
+      "retrieved_at": "2026-08-27T10:00:00Z",
+      "published_at": "2026-08-27",
+      "title": "github.com/Infosys — 102 public repositories"
+    },
+    {
+      "id": "s4",
+      "url": "https://github.com/Infosys/esignet",
+      "publisher": "GitHub",
+      "type": "company_site",
+      "retrieved_at": "2026-08-27T10:00:00Z",
+      "published_at": "2026-08-26",
+      "title": "esignet — identity component, actively committed"
+    },
+    {
+      "id": "s5",
+      "url": "https://news.ycombinator.com/item?id=33619562",
+      "publisher": "Hacker News",
+      "type": "forum",
+      "retrieved_at": "2026-08-27T10:00:00Z",
+      "published_at": "2022-11-16",
+      "title": "Infosys leaked FullAdminAccess AWS keys on PyPI for over a year (502 points)"
+    },
+    {
+      "id": "s6",
+      "url": "https://www.bseindia.com/stock-share-price/x/x/500209/corp-announcements/",
+      "publisher": "BSE India",
+      "type": "filing",
+      "retrieved_at": "2026-08-27T10:00:00Z",
+      "published_at": "2026-07-23",
+      "title": "BSE corporate announcements, scrip 500209"
+    },
+    {
+      "id": "s7",
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/089c483b-7ab1-476a-8314-45bca94336f2.pdf",
+      "publisher": "BSE India",
+      "type": "filing",
+      "retrieved_at": "2026-08-27T10:00:00Z",
+      "published_at": "2026-05-30",
+      "title": "Infosys Annual Report FY2026 (PDF)"
+    }
+  ],
+  "pillars": {
+    "compensation": {
+      "status": "partial",
+      "claims": [
+        {
+          "id": "compensation.0",
+          "text": "For US-sponsored roles the Infosys group filed 1,900 Labor Condition Applications in FY2025 with a median committed base wage of $92,581 (p25 $85,925, p75 $110,157) — but these describe US worksites and say nothing directly about an Indian offer.",
+          "source_ids": [
+            "s1"
+          ],
+          "confidence": "high",
+          "as_of": "2025-09-30"
+        },
+        {
+          "id": "compensation.1",
+          "text": "Those filings sweep in four related employers (Infosys Limited, Infosys BPM, Infosys Public Services and Infosys McCamish Systems), so the median is a group figure rather than one entity's pay band.",
+          "source_ids": [
+            "s1"
+          ],
+          "confidence": "high",
+          "as_of": "2025-09-30"
+        },
+        {
+          "id": "compensation.2",
+          "text": "The 20-F states that compensation increases may be delayed in adverse market conditions while competitors still raise, and names that as a driver of attrition — pay policy here is explicitly cyclical.",
+          "source_ids": [
+            "s2"
+          ],
+          "confidence": "high",
+          "as_of": "2026-06-15"
+        }
+      ],
+      "gaps": [
+        {
+          "reason": "no free structured compensation source exists for the Indian market: AmbitionBox is Naukri-owned and scrape-hostile, and Indian postings rarely publish ranges. No estimate is offered here because any number would be invented.",
+          "suggested_fallback": "search AmbitionBox and Levels.fyi for 'Infosys Technology Lead Bengaluru', treat what you find as dated anecdote, and compare the offer against your own current package rather than a market median"
+        }
+      ],
+      "entity_id": "in:L85110KA1981PLC013115"
+    },
+    "culture": {
+      "status": "partial",
+      "claims": [
+        {
+          "id": "culture.0",
+          "text": "The public GitHub organisation has 102 repositories and the recently active ones are digital-public-infrastructure components (esignet, inji-certify, mimoto), committed to within the last two days — real engineering, but almost none of it carries external stars or contributors.",
+          "source_ids": [
+            "s3",
+            "s4"
+          ],
+          "confidence": "high",
+          "as_of": "2026-08-27"
+        },
+        {
+          "id": "culture.1",
+          "text": "The loudest public engineering discussion of this company remains a 2022 credential-leak thread; there is little recent first-hand engineering commentary either way, which for a 328,000-person company means the public record is close to silent.",
+          "source_ids": [
+            "s5"
+          ],
+          "confidence": "low",
+          "as_of": "2022-11-16"
+        },
+        {
+          "id": "culture.2",
+          "text": "The company describes AI adoption as a strategic risk in its own filing ('Our investments in or use of AI technologies may not be successful'), which is a more candid framing than the marketing site offers.",
+          "source_ids": [
+            "s2"
+          ],
+          "confidence": "high",
+          "as_of": "2026-06-15"
+        }
+      ],
+      "gaps": [
+        {
+          "reason": "no dated first-hand employee accounts from the last 18 months were found, so wlb_sentiment is unset; at this headcount, absence of public commentary is not evidence either way",
+          "suggested_fallback": "ask to speak to two engineers on the specific delivery account, and ask what the on-call and client-hours expectations are for that account rather than for the company"
+        }
+      ],
+      "entity_id": "in:L85110KA1981PLC013115"
+    },
+    "financial_health": {
+      "status": "ok",
+      "claims": [
+        {
+          "id": "financial_health.0",
+          "text": "Revenue grew from $12.78bn (FY2020) to $19.28bn (FY2025), an 8.6% compound rate, but only 3.9% in the most recent year — the growth curve has flattened, not reversed.",
+          "source_ids": [
+            "s2"
+          ],
+          "confidence": "high",
+          "as_of": "2025-03-31"
+        },
+        {
+          "id": "financial_health.1",
+          "text": "Operating income rose to $4.07bn while net income was flat at $3.16bn: margins are being defended even as growth slows.",
+          "source_ids": [
+            "s2"
+          ],
+          "confidence": "high",
+          "as_of": "2025-03-31"
+        },
+        {
+          "id": "financial_health.2",
+          "text": "Cash and equivalents nearly doubled to $2.86bn over two years, and the exchange reports return on equity of 36.7% with an operating margin of 27.1% — this is a cash-generative business, not one under funding pressure.",
+          "source_ids": [
+            "s2",
+            "s6"
+          ],
+          "confidence": "high",
+          "as_of": "2026-08-27"
+        },
+        {
+          "id": "financial_health.3",
+          "text": "R&D spend is $153m against $19.3bn of revenue (0.8%), which is characteristic of a services business: the money follows billable delivery, not product engineering.",
+          "source_ids": [
+            "s2"
+          ],
+          "confidence": "high",
+          "as_of": "2025-03-31"
+        },
+        {
+          "id": "financial_health.4",
+          "text": "The 20-F risk factors put client concentration and fixed-price delivery first: 'Our failure to complete fixed-price and fixed-timeframe contracts within budget and on time may negatively affect our profitability', and 'Our client contracts are often conditional upon our performance'.",
+          "source_ids": [
+            "s2"
+          ],
+          "confidence": "high",
+          "as_of": "2026-06-15"
+        }
+      ],
+      "gaps": [],
+      "entity_id": "in:L85110KA1981PLC013115"
+    },
+    "hiring_trend": {
+      "status": "partial",
+      "claims": [
+        {
+          "id": "hiring_trend.0",
+          "text": "Headcount was 328,594 at 31 March 2026 against 323,578 a year earlier: growth of 1.5%, far below the revenue growth rate, which is what a services company doing more with the same people looks like.",
+          "source_ids": [
+            "s2"
+          ],
+          "confidence": "high",
+          "as_of": "2026-03-31"
+        },
+        {
+          "id": "hiring_trend.1",
+          "text": "310,887 of those 328,594 employees are service-delivery professionals, so the ratio of delivery to everything else is roughly 19 to 1 — worth knowing before assuming a platform-engineering career path.",
+          "source_ids": [
+            "s2"
+          ],
+          "confidence": "high",
+          "as_of": "2026-03-31"
+        },
+        {
+          "id": "hiring_trend.2",
+          "text": "A management change was disclosed to the exchange on 24 August 2026 under Regulation 30; senior churn immediately before an offer decision is worth asking about.",
+          "source_ids": [
+            "s6"
+          ],
+          "confidence": "medium",
+          "as_of": "2026-08-24"
+        }
+      ],
+      "gaps": [
+        {
+          "reason": "infosys.com returns HTTP 403 to this tool, so the careers board could not be snapshotted and neither role_repost_count_12m nor hiring_velocity_90d could be computed",
+          "suggested_fallback": "open the careers site in a browser and pass the board URL explicitly: `snapshot.py --domain infosys.com --careers-url <url>`"
+        }
+      ],
+      "entity_id": "in:L85110KA1981PLC013115"
+    },
+    "reviews": {
+      "status": "partial",
+      "claims": [
+        {
+          "id": "reviews.0",
+          "text": "The company itself flags volatility in Indian attrition as an ongoing risk, tying it to wage increases, share price movement and competitor hiring — the closest thing to an audited satisfaction number that exists here.",
+          "source_ids": [
+            "s2"
+          ],
+          "confidence": "high",
+          "as_of": "2026-06-15"
+        },
+        {
+          "id": "reviews.1",
+          "text": "The 20-F also names hybrid-work friction directly: employee preference for remote working set against client expectations of return-to-office is listed as a risk to attrition and client satisfaction.",
+          "source_ids": [
+            "s2"
+          ],
+          "confidence": "high",
+          "as_of": "2026-06-15"
+        }
+      ],
+      "gaps": [
+        {
+          "reason": "rating platforms (Glassdoor, AmbitionBox, Indeed) offer no free structured access and are not scraped by this tool, so no rating or rating trend could be sourced",
+          "suggested_fallback": "read the quarterly attrition percentage in the last four results releases (BSE announcements) — it is audited, dated and specific, unlike a rating; then search the rating sites yourself for colour"
+        }
+      ],
+      "entity_id": "in:L85110KA1981PLC013115"
+    }
+  },
+  "signals": {
+    "sponsorship_history_3y": {
+      "value": 1900,
+      "confidence": "high",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "1,900 LCA filings in FY2025 across the Infosys group; relevant only if a US transfer is on the table"
+    },
+    "comp_transparency": {
+      "value": null,
+      "confidence": "none",
+      "note": "no pay range is published, but no Indian employer publishes one: scoring this as a company failure would drag the whole compensation dimension to zero on a market norm, so it is left unscored and stated here instead",
+      "source_ids": []
+    },
+    "eng_output_signal": {
+      "value": 0.4,
+      "confidence": "medium",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "active public repos, but narrow in scope and with negligible outside adoption for a company of this size"
+    },
+    "revenue_trend": {
+      "value": "flat",
+      "confidence": "high",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "+3.9% year on year in the latest annual period, below the 8.6% six-year CAGR"
+    },
+    "headcount_trend_12m": {
+      "value": 0.0155,
+      "confidence": "high",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "328,594 vs 323,578 employees year on year, from the company's own 20-F"
+    }
+  },
+  "narrative": {
+    "summary": "Infosys is a financially solid, cash-generative services company whose growth has flattened to about 4% a year while margins hold near 27%. Headcount grew 1.5% against that, so the offer sits in a business doing more with roughly the same number of people. Compensation cannot be answered from any free structured source for the Indian market, and this dossier does not guess: the number to compare against is your current package, not a market median someone invented. The company's own filing is unusually candid about attrition, cyclical pay increases and return-to-office friction, and those are the three things worth pressing on before accepting.",
+    "strengths": [
+      {
+        "text": "Cash of $2.86bn, ROE of 36.7% and a 27% operating margin: no funding risk here",
+        "claim_ids": [
+          "financial_health.2"
+        ]
+      },
+      {
+        "text": "Margins are being defended as growth slows, rather than earnings falling with revenue",
+        "claim_ids": [
+          "financial_health.1"
+        ]
+      },
+      {
+        "text": "A deep US sponsorship record (1,900 LCA filings in FY2025) if a transfer is ever on the table",
+        "claim_ids": [
+          "compensation.0"
+        ]
+      }
+    ],
+    "concerns": [
+      {
+        "text": "Revenue growth has fallen to 3.9%, well below the six-year 8.6% CAGR",
+        "claim_ids": [
+          "financial_health.0"
+        ]
+      },
+      {
+        "text": "R&D is 0.8% of revenue and 95% of staff are in service delivery — this is a delivery career, not a product one",
+        "claim_ids": [
+          "financial_health.3",
+          "hiring_trend.1"
+        ]
+      },
+      {
+        "text": "The company names delayed wage increases and hybrid-work friction as attrition drivers in its own 20-F",
+        "claim_ids": [
+          "compensation.2",
+          "reviews.0",
+          "reviews.1"
+        ]
+      },
+      {
+        "text": "Compensation for the Indian market is a genuine data gap, and a management change was filed three days before this dossier",
+        "claim_ids": [
+          "hiring_trend.2"
+        ]
+      }
+    ],
+    "questions_to_ask": [
+      "Which client account is this role attached to, and how long does that contract run?",
+      "What was voluntary attrition on that account over the last four quarters?",
+      "Is the compensation revision cycle on schedule this year, and when was the last one?",
+      "What are the return-to-office and client-hours expectations for this specific engagement?",
+      "How does someone in this role move from delivery into platform or product work here?"
+    ]
+  },
+  "profile": {
+    "priorities": [
+      "stability",
+      "comp",
+      "wlb",
+      "learning",
+      "growth"
+    ],
+    "work_authorization": {
+      "IN": "citizen",
+      "US": "requires_sponsorship"
+    },
+    "base_market": "IN"
+  }
+}

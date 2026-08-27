@@ -1,0 +1,44 @@
+[
+ {
+  "SCRIP_CD": "500209",
+  "Scrip_Name": "Infosys Ltd",
+  "Status": "Active",
+  "GROUP": "A",
+  "FACE_VALUE": "5.00",
+  "ISIN_NUMBER": "INE009A01021",
+  "INDUSTRY": null,
+  "scrip_id": "INFY",
+  "Segment": "Equity",
+  "NSURL": "https://www.bseindia.com/stock-share-price/infosys-ltd/infy/500209/",
+  "Issuer_Name": "Infosys Ltd",
+  "Mktcap": "454826.98"
+ },
+ {
+  "SCRIP_CD": "500325",
+  "Scrip_Name": "Reliance Industries Ltd",
+  "Status": "Active",
+  "GROUP": "A",
+  "FACE_VALUE": "10.00",
+  "ISIN_NUMBER": "INE002A01018",
+  "INDUSTRY": null,
+  "scrip_id": "RELIANCE",
+  "Segment": "Equity",
+  "NSURL": "https://www.bseindia.com/stock-share-price/reliance-industries-ltd/reliance/500325/",
+  "Issuer_Name": "Reliance Industries Ltd",
+  "Mktcap": "1757876.78"
+ },
+ {
+  "SCRIP_CD": "507685",
+  "Scrip_Name": "Wipro Ltd",
+  "Status": "Active",
+  "GROUP": "A",
+  "FACE_VALUE": "2.00",
+  "ISIN_NUMBER": "INE075A01022",
+  "INDUSTRY": null,
+  "scrip_id": "WIPRO",
+  "Segment": "Equity",
+  "NSURL": "https://www.bseindia.com/stock-share-price/wipro-ltd/wipro/507685/",
+  "Issuer_Name": "Wipro  Ltd.",
+  "Mktcap": "175706.49"
+ }
+]

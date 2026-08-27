@@ -1,0 +1,78 @@
+{
+ "sources": [
+  {
+   "id": "s1",
+   "url": "https://www.dol.gov/agencies/eta/foreign-labor/performance",
+   "publisher": "US Department of Labor (OFLC)",
+   "type": "dataset",
+   "retrieved_at": "2026-08-27T10:00:00Z",
+   "published_at": "2025-10-01",
+   "title": "LCA Disclosure Data FY2025 Q4"
+  },
+  {
+   "id": "s2",
+   "url": "https://www.sec.gov/Archives/edgar/data/1067491/000119312526270520/infy-20260331.htm",
+   "publisher": "SEC EDGAR",
+   "type": "filing",
+   "retrieved_at": "2026-08-27T10:00:00Z",
+   "published_at": "2026-06-15",
+   "title": "Infosys Ltd Form 20-F, FY2026"
+  }
+ ],
+ "pillars": {
+  "compensation": {
+   "status": "partial",
+   "entity_id": "in:L85110KA1981PLC013115",
+   "claims": [
+    {
+     "id": "compensation.0",
+     "text": "For US-sponsored roles the Infosys group filed 1,900 Labor Condition Applications in FY2025 with a median committed base wage of $92,581 (p25 $85,925, p75 $110,157) — but these describe US worksites and say nothing directly about an Indian offer.",
+     "source_ids": [
+      "s1"
+     ],
+     "confidence": "high",
+     "as_of": "2025-09-30"
+    },
+    {
+     "id": "compensation.1",
+     "text": "Those filings sweep in four related employers (Infosys Limited, Infosys BPM, Infosys Public Services and Infosys McCamish Systems), so the median is a group figure rather than one entity's pay band.",
+     "source_ids": [
+      "s1"
+     ],
+     "confidence": "high",
+     "as_of": "2025-09-30"
+    },
+    {
+     "id": "compensation.2",
+     "text": "The 20-F states that compensation increases may be delayed in adverse market conditions while competitors still raise, and names that as a driver of attrition — pay policy here is explicitly cyclical.",
+     "source_ids": [
+      "s2"
+     ],
+     "confidence": "high",
+     "as_of": "2026-06-15"
+    }
+   ],
+   "gaps": [
+    {
+     "reason": "no free structured compensation source exists for the Indian market: AmbitionBox is Naukri-owned and scrape-hostile, and Indian postings rarely publish ranges. No estimate is offered here because any number would be invented.",
+     "suggested_fallback": "search AmbitionBox and Levels.fyi for 'Infosys Technology Lead Bengaluru', treat what you find as dated anecdote, and compare the offer against your own current package rather than a market median"
+    }
+   ]
+  }
+ },
+ "signals": {
+  "sponsorship_history_3y": {
+   "value": 1900,
+   "confidence": "high",
+   "source_ids": [
+    "s1"
+   ],
+   "note": "1,900 LCA filings in FY2025 across the Infosys group; relevant only if a US transfer is on the table"
+  },
+  "comp_transparency": {
+   "value": null,
+   "confidence": "none",
+   "note": "no pay range is published, but no Indian employer publishes one: scoring this as a company failure would drag the whole compensation dimension to zero on a market norm, so it is left unscored and stated here instead"
+  }
+ }
+}

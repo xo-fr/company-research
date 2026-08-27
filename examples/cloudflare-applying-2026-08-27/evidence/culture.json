@@ -1,0 +1,100 @@
+{
+ "sources": [
+  {
+   "id": "s1",
+   "url": "https://github.com/cloudflare",
+   "publisher": "GitHub",
+   "type": "company_site",
+   "retrieved_at": "2026-08-27T09:30:00Z",
+   "title": "github.com/cloudflare — 575 public repositories"
+  },
+  {
+   "id": "s2",
+   "url": "https://github.com/cloudflare/workerd",
+   "publisher": "GitHub",
+   "type": "company_site",
+   "retrieved_at": "2026-08-27T09:30:00Z",
+   "published_at": "2026-08-27",
+   "title": "workerd — the Workers runtime, 8,643 stars, C++"
+  },
+  {
+   "id": "s3",
+   "url": "https://news.ycombinator.com/item?id=42174204",
+   "publisher": "Hacker News",
+   "type": "forum",
+   "retrieved_at": "2026-08-27T09:30:00Z",
+   "published_at": "2025-11-18",
+   "title": "Cloudflare outage on November 18, 2025 post mortem"
+  },
+  {
+   "id": "s4",
+   "url": "https://news.ycombinator.com/item?id=44133046",
+   "publisher": "Hacker News",
+   "type": "forum",
+   "retrieved_at": "2026-08-27T09:30:00Z",
+   "published_at": "2026-05-07",
+   "title": "Cloudflare to cut about 20% of its workforce"
+  }
+ ],
+ "pillars": {
+  "culture": {
+   "status": "partial",
+   "entity_id": "us:0001477333",
+   "claims": [
+    {
+     "id": "culture.0",
+     "text": "The public GitHub organisation holds 575 repositories and six of the ten most recently touched — including the Workers runtime (workerd, C++, 8.6k stars) and workers-sdk — had commits within the last two days, so the open-source presence is live work rather than a shop window.",
+     "source_ids": [
+      "s1",
+      "s2"
+     ],
+     "confidence": "high",
+     "as_of": "2026-08-27"
+    },
+    {
+     "id": "culture.1",
+     "text": "The company publishes detailed post-mortems on its own outages within a day, and its engineers answer questions in the resulting public threads — useful evidence about how incidents are handled internally.",
+     "source_ids": [
+      "s3"
+     ],
+     "confidence": "medium",
+     "as_of": "2025-11-18"
+    },
+    {
+     "id": "culture.2",
+     "text": "The May 2026 restructuring is framed by the company itself as a move to an 'AI-first operating model', and the public discussion of it is dominated by whether that framing describes a change in how work is done or a cost cut wearing a strategy label. Worth asking directly in interviews.",
+     "source_ids": [
+      "s4"
+     ],
+     "confidence": "low",
+     "as_of": "2026-05-07"
+    }
+   ],
+   "gaps": [
+    {
+     "reason": "fewer than three independent, dated, first-hand employee accounts were found, so wlb_sentiment is left unset rather than estimated from thread tone",
+     "suggested_fallback": "ask the recruiter for two current engineers on the team to speak to, and search for recent conference talks by the hiring team"
+    }
+   ]
+  }
+ },
+ "signals": {
+  "eng_output_signal": {
+   "value": 0.9,
+   "confidence": "high",
+   "source_ids": [
+    "s1",
+    "s2"
+   ],
+   "note": "575 public repos, six pushed within 48 hours, including the production Workers runtime"
+  },
+  "stack_currency": {
+   "value": 0.85,
+   "confidence": "medium",
+   "source_ids": [
+    "s2"
+   ],
+   "note": "Rust/C++/TypeScript edge runtime work; the posting's stack matches what the public repos actually run"
+  }
+ }
+}

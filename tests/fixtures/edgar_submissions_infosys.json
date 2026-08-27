@@ -1,0 +1,74 @@
+{
+ "cik": "0001067491",
+ "name": "Infosys Ltd",
+ "tickers": [
+  "INFY"
+ ],
+ "exchanges": [
+  "NYSE"
+ ],
+ "sicDescription": "Services-Computer Programming Services",
+ "fiscalYearEnd": "0331",
+ "stateOfIncorporation": "",
+ "filings": {
+  "recent": {
+   "accessionNumber": [
+    "0001067491-26-000038",
+    "0001067491-26-000036",
+    "0001067491-26-000034",
+    "0001067491-26-000032",
+    "0001067491-26-000030",
+    "0001067491-26-000028"
+   ],
+   "filingDate": [
+    "2026-07-28",
+    "2026-07-28",
+    "2026-07-23",
+    "2026-07-13",
+    "2026-06-25",
+    "2026-06-24"
+   ],
+   "reportDate": [
+    "2026-06-30",
+    "2026-07-28",
+    "2026-06-30",
+    "2026-07-13",
+    "2026-06-25",
+    "2026-06-24"
+   ],
+   "form": [
+    "6-K",
+    "6-K",
+    "6-K",
+    "6-K",
+    "6-K",
+    "6-K"
+   ],
+   "primaryDocument": [
+    "index.htm",
+    "index.htm",
+    "index.htm",
+    "index.htm",
+    "index.htm",
+    "index.htm"
+   ],
+   "primaryDocDescription": [
+    "DISCLOSURE OF RESULTS OF OPERATIONS AND FINANCIAL CONDITION",
+    "INDEX",
+    "DISCLOSURE OF RESULTS OF OPERATIONS AND FINANCIAL CONDITION",
+    "INDEX",
+    "INDEX",
+    "INDEX"
+   ],
+   "items": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  "files": []
+ }
+}

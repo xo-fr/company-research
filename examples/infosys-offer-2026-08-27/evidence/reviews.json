@@ -1,0 +1,54 @@
+{
+ "sources": [
+  {
+   "id": "s1",
+   "url": "https://www.sec.gov/Archives/edgar/data/1067491/000119312526270520/infy-20260331.htm",
+   "publisher": "SEC EDGAR",
+   "type": "filing",
+   "retrieved_at": "2026-08-27T10:00:00Z",
+   "published_at": "2026-06-15",
+   "title": "Infosys Ltd Form 20-F, FY2026"
+  },
+  {
+   "id": "s2",
+   "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/089c483b-7ab1-476a-8314-45bca94336f2.pdf",
+   "publisher": "BSE India",
+   "type": "filing",
+   "retrieved_at": "2026-08-27T10:00:00Z",
+   "published_at": "2026-05-30",
+   "title": "Infosys Annual Report FY2026 (PDF)"
+  }
+ ],
+ "pillars": {
+  "reviews": {
+   "status": "partial",
+   "entity_id": "in:L85110KA1981PLC013115",
+   "claims": [
+    {
+     "id": "reviews.0",
+     "text": "The company itself flags volatility in Indian attrition as an ongoing risk, tying it to wage increases, share price movement and competitor hiring — the closest thing to an audited satisfaction number that exists here.",
+     "source_ids": [
+      "s1"
+     ],
+     "confidence": "high",
+     "as_of": "2026-06-15"
+    },
+    {
+     "id": "reviews.1",
+     "text": "The 20-F also names hybrid-work friction directly: employee preference for remote working set against client expectations of return-to-office is listed as a risk to attrition and client satisfaction.",
+     "source_ids": [
+      "s1"
+     ],
+     "confidence": "high",
+     "as_of": "2026-06-15"
+    }
+   ],
+   "gaps": [
+    {
+     "reason": "rating platforms (Glassdoor, AmbitionBox, Indeed) offer no free structured access and are not scraped by this tool, so no rating or rating trend could be sourced",
+     "suggested_fallback": "read the quarterly attrition percentage in the last four results releases (BSE announcements) — it is audited, dated and specific, unlike a rating; then search the rating sites yourself for colour"
+    }
+   ]
+  }
+ }
+}

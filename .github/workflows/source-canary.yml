@@ -1,0 +1,80 @@
+name: source canary
+
+# Sources rot quietly: an endpoint moves, a WAF tightens, a payload changes shape, and the
+# tool starts returning empty pillars that look like "nothing to report". This runs
+# doctor.py against the live sources every night and opens one labelled issue when a core
+# source is down, so contributors fix what is visibly red instead of what is silently
+# broken.
+
+on:
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Probe every source
+        id: doctor
+        env:
+          CR_CONTACT_EMAIL: ${{ vars.CR_CONTACT_EMAIL || 'source-canary@example.com' }}
+        run: |
+          set +e
+          python scripts/doctor.py --pretty > report.json 2> summary.txt
+          echo "exit_code=$?" >> "$GITHUB_OUTPUT"
+          cat summary.txt
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: doctor-report
+          path: |
+            report.json
+            summary.txt
+
+      - name: Open an issue when a core source is down
+        if: steps.doctor.outputs.exit_code != '0'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = JSON.parse(fs.readFileSync('report.json', 'utf8'));
+            const broken = report.results.filter(r => r.status !== 'live');
+            const title = `Source canary: ${broken.map(r => r.id).join(', ')} not live`;
+            const body = [
+              `Probed at ${report.generated_at}.`,
+              '',
+              '| source | status | detail | hint |',
+              '| --- | --- | --- | --- |',
+              ...broken.map(r => `| \`${r.id}\` | ${r.status} | ${r.detail} | ${r.hint} |`),
+              '',
+              `Live: ${report.summary.live} · degraded: ${report.summary.degraded} · dead: ${report.summary.dead}`,
+              '',
+              'Reproduce locally with `python scripts/doctor.py`.',
+            ].join('\n');
+
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo,
+              state: 'open', labels: 'source-health',
+            });
+            if (existing.data.length) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner, repo: context.repo.repo,
+                issue_number: existing.data[0].number, body,
+              });
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner, repo: context.repo.repo,
+                title, body, labels: ['source-health'],
+              });
+            }

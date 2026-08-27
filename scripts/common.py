@@ -530,10 +530,23 @@ def _decode_body(raw: bytes, headers) -> str:
                 pass
     except Exception:
         pass
-    charset = "utf-8"
+    charset = None
     if headers is not None and hasattr(headers, "get_content_charset"):
-        charset = headers.get_content_charset() or "utf-8"
-    return raw.decode(charset, errors="replace")
+        charset = headers.get_content_charset()
+    if not charset:
+        # SEC serves cp1252 filings with no charset. Guessing utf-8 turns every curly
+        # quote in a risk factor into a replacement character, which then shows up inside
+        # quoted claims in the dossier.
+        meta = re.search(rb'charset=["\']?([\w-]+)', raw[:4096], re.I)
+        charset = meta.group(1).decode("ascii", "ignore") if meta else None
+    for candidate in [charset, "utf-8", "cp1252", "latin-1"]:
+        if not candidate:
+            continue
+        try:
+            return raw.decode(candidate)
+        except (UnicodeDecodeError, LookupError):
+            continue
+    return raw.decode("utf-8", errors="replace")
 
 
 def http_get(
@@ -554,9 +567,14 @@ def http_get(
     """
     cache_dir = Path(cache_dir).expanduser() if cache_dir else DEFAULT_CACHE_DIR
     path = cache_path(url, cache_dir)
-    cached = _read_cache(path, ttl_seconds)
+    offline = os.environ.get("CR_OFFLINE") == "1"
+    cached = _read_cache(path, NEVER_EXPIRES if offline else ttl_seconds)
     if cached is not None and (cached.ok or allow_cached_errors):
         return cached
+    if offline:
+        # CR_OFFLINE serves whatever is cached, however old, and never opens a socket.
+        # The test suite runs this way; so can a user on a plane.
+        raise SourceError(f"offline mode: {url} is not in the cache at {cache_dir}")
 
     domain = urllib.parse.urlsplit(url).netloc
     hdrs = dict(headers or {})

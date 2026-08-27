@@ -1,0 +1,78 @@
+{
+ "sources": [
+  {
+   "id": "s1",
+   "url": "https://www.sec.gov/Archives/edgar/data/1477333/000147733326000016/cloud-20251231.htm",
+   "publisher": "SEC EDGAR",
+   "type": "filing",
+   "retrieved_at": "2026-08-27T09:30:00Z",
+   "published_at": "2026-02-26",
+   "title": "Cloudflare, Inc. Form 10-K, FY2025"
+  },
+  {
+   "id": "s2",
+   "url": "https://www.sec.gov/Archives/edgar/data/1477333/000147733326000033/cloud-20260507.htm",
+   "publisher": "SEC EDGAR",
+   "type": "filing",
+   "retrieved_at": "2026-08-27T09:30:00Z",
+   "published_at": "2026-05-07",
+   "title": "Cloudflare 8-K, Item 2.05"
+  }
+ ],
+ "pillars": {
+  "financial_health": {
+   "status": "ok",
+   "entity_id": "us:0001477333",
+   "claims": [
+    {
+     "id": "financial_health.0",
+     "text": "Six consecutive years of revenue growth with no year below 27%: $431m, $656m, $975m, $1.30bn, $1.67bn, $2.17bn (FY2020–FY2025, XBRL).",
+     "source_ids": [
+      "s1"
+     ],
+     "confidence": "high",
+     "as_of": "2025-12-31"
+    },
+    {
+     "id": "financial_health.1",
+     "text": "Cash and equivalents rose from $148m to $944m during FY2025, so the $105–110m cash cost of the 2026 restructuring is comfortably covered.",
+     "source_ids": [
+      "s1",
+      "s2"
+     ],
+     "confidence": "high",
+     "as_of": "2025-12-31"
+    },
+    {
+     "id": "financial_health.2",
+     "text": "Net loss narrowed to $79m in FY2024 and widened again to $102m in FY2025, so the trend toward profitability reversed in the most recent year.",
+     "source_ids": [
+      "s1"
+     ],
+     "confidence": "high",
+     "as_of": "2025-12-31"
+    },
+    {
+     "id": "financial_health.3",
+     "text": "The 10-K's own risk factors lead with 'We have a history of net losses and may not be able to achieve or sustain profitability' and 'We have experienced rapid revenue growth, which may not be indicative of our future performance'.",
+     "source_ids": [
+      "s1"
+     ],
+     "confidence": "high",
+     "as_of": "2026-02-26"
+    }
+   ],
+   "gaps": []
+  }
+ },
+ "signals": {
+  "revenue_trend": {
+   "value": "growing",
+   "confidence": "high",
+   "source_ids": [
+    "s1"
+   ],
+   "note": "+29.9% year on year, 38% CAGR across six annual filings"
+  }
+ }
+}

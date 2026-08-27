@@ -1,0 +1,161 @@
+{
+ "meta": {
+  "generated_at": "2026-08-27T10:00:00Z",
+  "stage": "offer",
+  "spec_version": "1.0.0"
+ },
+ "entity": {
+  "brand": "Infosys",
+  "domain": "infosys.com",
+  "resolved_entity_id": "in:L85110KA1981PLC013115",
+  "employment_type": "direct",
+  "employment_type_reason": "Indian entity with no foreign parent found",
+  "confidence": 0.75,
+  "tree": {
+   "brand": {
+    "wikidata_qid": "Q495706",
+    "aliases": [
+     "Infosys",
+     "Infosys Limited",
+     "Infosys Technologies"
+    ]
+   },
+   "entities": [
+    {
+     "id": "us:0001067491",
+     "jurisdiction": "US",
+     "legal_name": "Infosys Ltd",
+     "cik": "0001067491",
+     "ticker": "INFY",
+     "source": "sec:company_tickers.json"
+    },
+    {
+     "id": "in:L85110KA1981PLC013115",
+     "jurisdiction": "IN",
+     "legal_name": "Infosys Ltd",
+     "cin": "L85110KA1981PLC013115",
+     "bse_scrip_code": "500209",
+     "isin": "INE009A01021",
+     "source": "bse"
+    }
+   ]
+  },
+  "notes": [
+   "one brand, two filers: the 20-F is the richer document, but the India entity is the employer"
+  ]
+ },
+ "query": {
+  "role": "Technology Lead (Backend)",
+  "level_guess": "Technology Lead / JL6",
+  "market": "IN",
+  "city": "Bengaluru"
+ },
+ "profile": {
+  "priorities": [
+   "stability",
+   "comp",
+   "wlb",
+   "learning",
+   "growth"
+  ],
+  "work_authorization": {
+   "IN": "citizen",
+   "US": "requires_sponsorship"
+  },
+  "base_market": "IN"
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "url": "https://www.sec.gov/Archives/edgar/data/1067491/000119312526270520/infy-20260331.htm",
+   "publisher": "SEC EDGAR",
+   "type": "filing",
+   "retrieved_at": "2026-08-27T10:00:00Z",
+   "published_at": "2026-06-15",
+   "title": "Infosys Ltd Form 20-F, FY2026"
+  },
+  {
+   "id": "s2",
+   "url": "https://www.bseindia.com/stock-share-price/x/x/500209/corp-announcements/",
+   "publisher": "BSE India",
+   "type": "filing",
+   "retrieved_at": "2026-08-27T10:00:00Z",
+   "published_at": "2026-07-23",
+   "title": "BSE corporate announcements, scrip 500209"
+  },
+  {
+   "id": "s3",
+   "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/089c483b-7ab1-476a-8314-45bca94336f2.pdf",
+   "publisher": "BSE India",
+   "type": "filing",
+   "retrieved_at": "2026-08-27T10:00:00Z",
+   "published_at": "2026-05-30",
+   "title": "Infosys Annual Report FY2026 (PDF)"
+  }
+ ],
+ "pillars": {
+  "financial_health": {
+   "status": "ok",
+   "entity_id": "in:L85110KA1981PLC013115",
+   "claims": [
+    {
+     "id": "financial_health.0",
+     "text": "Revenue grew from $12.78bn (FY2020) to $19.28bn (FY2025), an 8.6% compound rate, but only 3.9% in the most recent year — the growth curve has flattened, not reversed.",
+     "source_ids": [
+      "s1"
+     ],
+     "confidence": "high",
+     "as_of": "2025-03-31"
+    },
+    {
+     "id": "financial_health.1",
+     "text": "Operating income rose to $4.07bn while net income was flat at $3.16bn: margins are being defended even as growth slows.",
+     "source_ids": [
+      "s1"
+     ],
+     "confidence": "high",
+     "as_of": "2025-03-31"
+    },
+    {
+     "id": "financial_health.2",
+     "text": "Cash and equivalents nearly doubled to $2.86bn over two years, and the exchange reports return on equity of 36.7% with an operating margin of 27.1% — this is a cash-generative business, not one under funding pressure.",
+     "source_ids": [
+      "s1",
+      "s2"
+     ],
+     "confidence": "high",
+     "as_of": "2026-08-27"
+    },
+    {
+     "id": "financial_health.3",
+     "text": "R&D spend is $153m against $19.3bn of revenue (0.8%), which is characteristic of a services business: the money follows billable delivery, not product engineering.",
+     "source_ids": [
+      "s1"
+     ],
+     "confidence": "high",
+     "as_of": "2025-03-31"
+    },
+    {
+     "id": "financial_health.4",
+     "text": "The 20-F risk factors put client concentration and fixed-price delivery first: 'Our failure to complete fixed-price and fixed-timeframe contracts within budget and on time may negatively affect our profitability', and 'Our client contracts are often conditional upon our performance'.",
+     "source_ids": [
+      "s1"
+     ],
+     "confidence": "high",
+     "as_of": "2026-06-15"
+    }
+   ],
+   "gaps": []
+  }
+ },
+ "signals": {
+  "revenue_trend": {
+   "value": "flat",
+   "confidence": "high",
+   "source_ids": [
+    "s1"
+   ],
+   "note": "+3.9% year on year in the latest annual period, below the 8.6% six-year CAGR"
+  }
+ }
+}

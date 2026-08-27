@@ -1,0 +1,35 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"   # the suite runs the dashboard's own scoring core
+      - run: pip install pytest
+      - name: Run the offline suite
+        run: python -m pytest -q
+      - name: Every script must expose --help
+        run: |
+          for script in scripts/*.py; do
+            python "$script" --help > /dev/null || exit 1
+          done
+      - name: Committed example dossiers must still validate
+        run: |
+          for dir in examples/*/; do
+            [ -d "$dir/evidence" ] || continue
+            python scripts/merge.py --dir "$dir" --check > /dev/null
+          done

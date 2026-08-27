@@ -1,0 +1,74 @@
+{
+ "sources": [
+  {
+   "id": "s1",
+   "url": "https://boards.greenhouse.io/cloudflare",
+   "publisher": "Cloudflare (Greenhouse)",
+   "type": "posting",
+   "retrieved_at": "2026-08-27T09:30:00Z",
+   "published_at": "2026-08-27",
+   "title": "Cloudflare job board — 306 open roles"
+  },
+  {
+   "id": "s2",
+   "url": "https://www.sec.gov/Archives/edgar/data/1477333/000147733326000033/cloud-20260507.htm",
+   "publisher": "SEC EDGAR",
+   "type": "filing",
+   "retrieved_at": "2026-08-27T09:30:00Z",
+   "published_at": "2026-05-07",
+   "title": "Cloudflare 8-K, Item 2.05"
+  },
+  {
+   "id": "s3",
+   "url": "https://www.sec.gov/Archives/edgar/data/1477333/000147733326000016/cloud-20251231.htm",
+   "publisher": "SEC EDGAR",
+   "type": "filing",
+   "retrieved_at": "2026-08-27T09:30:00Z",
+   "published_at": "2026-02-26",
+   "title": "Cloudflare, Inc. Form 10-K, FY2025"
+  }
+ ],
+ "pillars": {
+  "hiring_trend": {
+   "status": "partial",
+   "entity_id": "us:0001477333",
+   "claims": [
+    {
+     "id": "hiring_trend.0",
+     "text": "The board carried 306 open roles on 27 August 2026 — sixteen weeks after the company told the SEC it was cutting about 20% of its workforce. Hiring and cutting are running at the same time, which usually means a shift in what is being hired for rather than a freeze.",
+     "source_ids": [
+      "s1",
+      "s2"
+     ],
+     "confidence": "high",
+     "as_of": "2026-08-27"
+    },
+    {
+     "id": "hiring_trend.1",
+     "text": "203 of the 306 open roles are listed as Hybrid and 44 as In-Office, against 44 Distributed and 3 in Remote India: this is a company hiring back toward offices.",
+     "source_ids": [
+      "s1"
+     ],
+     "confidence": "high",
+     "as_of": "2026-08-27"
+    },
+    {
+     "id": "hiring_trend.2",
+     "text": "Against 5,156 employees at the end of FY2025, 306 open roles is a ~6% expansion of the headcount that remains after a 20% reduction — sizeable, and concentrated in engineering titles.",
+     "source_ids": [
+      "s1",
+      "s3"
+     ],
+     "confidence": "medium",
+     "as_of": "2026-08-27"
+    }
+   ],
+   "gaps": [
+    {
+     "reason": "this is the first local snapshot for cloudflare.com, so role_repost_count_12m and hiring_velocity_90d cannot be computed yet; the Wayback series for the old board URL has only one usable capture because the board moved hosts",
+     "suggested_fallback": "re-run the dossier in three weeks — snapshot.py appends automatically on every run — or try `wayback_jobs.py --url 'job-boards.greenhouse.io/cloudflare*'`"
+    }
+   ]
+  }
+ }
+}

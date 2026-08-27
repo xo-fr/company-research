@@ -51,7 +51,11 @@ crowd-sourced anecdote in the narrative — not as a claim in this pillar.
   title versus the same title's median across peer employers in the same state and year).
   Never mix an LCA base wage with a total-compensation figure from elsewhere.
 - `comp_transparency` (bool) — does the posting itself publish a range? Read it from the
-  JD text, not from policy pages.
+  JD text, not from policy pages. **In a market where nobody publishes ranges, leave this
+  unset** (`confidence: "none"`, `value: null`) and say so in a claim: scoring `false`
+  normalises to 0.0 and drags the whole compensation dimension to zero on the strength of
+  a market norm rather than anything this company did. Set it `false` only where peers in
+  the same market do publish.
 - `sponsorship_history_3y` — take it from `h1b.py`. It only enters the verdict when the
   user's profile says they need sponsorship; otherwise the dashboard shows it as
   information.
