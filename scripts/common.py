@@ -90,6 +90,15 @@ def is_api_endpoint(url: str) -> bool:
     return bool(prefixes) and parts.path.startswith(tuple(prefixes))
 
 
+_ignore_robots = False
+
+
+def set_ignore_robots(value: bool) -> None:
+    """Escape hatch for a human at a terminal. The skill never sets it."""
+    global _ignore_robots
+    _ignore_robots = bool(value)
+
+
 _last_request: dict[str, float] = {}
 _robots_cache: dict[str, Any] = {}
 
@@ -584,7 +593,7 @@ def http_get(
         hdrs.setdefault("User-Agent", user_agent())
     hdrs.setdefault("Accept-Encoding", "gzip, deflate")
 
-    if respect_robots and not is_api_endpoint(url) and not _robots_allows(url, hdrs):
+    if respect_robots and not _ignore_robots and not is_api_endpoint(url) and not _robots_allows(url, hdrs):
         raise SourceError(f"robots.txt disallows {url}")
 
     last_error = ""
@@ -687,6 +696,17 @@ def add_common_args(parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
         help="bypass robots.txt (never used by the skill; manual escape hatch only)",
     )
     parser.add_argument("--pretty", action="store_true", help="indent JSON output")
+    original_parse = parser.parse_args
+
+    def parse_args(*args, **kwargs):
+        # Wire the flag to the HTTP layer here rather than in ten call sites, so it
+        # cannot be silently inert in the one script that forgot to pass it through.
+        namespace = original_parse(*args, **kwargs)
+        if getattr(namespace, "ignore_robots", False):
+            set_ignore_robots(True)
+        return namespace
+
+    parser.parse_args = parse_args  # type: ignore[method-assign]
     return parser
 
 
